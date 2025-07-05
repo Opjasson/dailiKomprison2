@@ -57,7 +57,7 @@ const Login: React.FC<props> = ({ navigation }) => {
             </View>
 
             <View style={styles.containerForm}>
-                <Text style={styles.loginTitle}>Register</Text>
+                <Text style={styles.loginTitle}>Login</Text>
 
                 <Label title="Email" />
                 <Input

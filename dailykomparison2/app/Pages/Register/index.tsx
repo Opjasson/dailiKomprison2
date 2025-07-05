@@ -97,7 +97,7 @@ const Register: React.FC<props> = ({ navigation }) => {
 
                 <TouchableOpacity
                     style={styles.buatAkun}
-                    onPress={() => navigation.navigate("login")}>
+                    onPress={() => navigation.navigate("Login")}>
                     <Text>Sudah punya akun? Login disini</Text>
                 </TouchableOpacity>
             </View>
