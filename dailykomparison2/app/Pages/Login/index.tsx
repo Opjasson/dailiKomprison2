@@ -9,7 +9,6 @@ import {
     StatusBar,
     StyleSheet,
     Text,
-    TextInput,
     TouchableOpacity,
     View,
 } from "react-native";
@@ -37,12 +36,12 @@ const Login: React.FC<props> = ({ navigation }) => {
             });
 
             if (JSON.stringify(response.status) === "401") {
-                setError("Email atau password salah!");
+                setError("Akun tidak terdaftar!");
             } else {
-                navigation.navigate("kasir");
+                navigation.navigate("Home");
             }
         } else {
-            setError("Isi email dan password!");
+            setError("Lengkapi formulir yang ada!");
         }
     };
     return (
@@ -54,6 +53,10 @@ const Login: React.FC<props> = ({ navigation }) => {
 
             <View style={styles.containerForm}>
                 <Text style={styles.loginTitle}>Login</Text>
+
+                <Text style={error ? styles.errorMsg : styles.hidden}>
+                    {error}
+                </Text>
 
                 <Label title="Email" />
                 <Input
@@ -69,10 +72,6 @@ const Login: React.FC<props> = ({ navigation }) => {
                     placeholder="Masukan password anda"
                     secureTextEntry={true}
                 />
-
-                <Text style={error ? styles.errorMsg : styles.hidden}>
-                    {error}
-                </Text>
 
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
                     <Text
