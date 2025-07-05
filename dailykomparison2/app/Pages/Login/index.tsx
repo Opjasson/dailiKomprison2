@@ -18,7 +18,7 @@ interface props {
     navigation: NavigationProp<any, any>;
 }
 
-const Register: React.FC<props> = ({ navigation }) => {
+const Login: React.FC<props> = ({ navigation }) => {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confPassword, setConfPassword] = useState<string>();
@@ -175,4 +175,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Register;
+export default Login;
