@@ -8,10 +8,7 @@ interface props {
     navigation: NavigationProp<any, any>;
 }
 
-const splashScreen: React.FC<props> = ({ navigation }) => {
-    const handleAksi = () => {
-        alert("hallo");
-    };
+const SplashScreen: React.FC<props> = ({ navigation }) => {
     return (
         <View style={styles.area}>
             <StatusBar backgroundColor="#fff" barStyle="dark-content" />
@@ -79,4 +76,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default splashScreen;
+export default SplashScreen;

@@ -1,3 +1,4 @@
+import Input from "@/app/Components/Moleculs/Input";
 import { NavigationProp } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
@@ -58,16 +59,11 @@ const Register: React.FC<props> = ({ navigation }) => {
                     </Text>
                     <Text style={styles.garisHead}></Text>
                 </View>
-                <Text style={styles.textLabel}>Email</Text>
-                <TextInput
-                    style={{
-                        borderWidth: 1,
-                        marginBottom: 5,
-                        borderRadius: 5,
-                    }}
+               
+                <Input
                     keyboardType="email-address"
-                    placeholder="Masukan email anda"
                     onChangeText={(text) => setEmail(text)}
+                    placeholder="Masukan email anda"
                 />
 
                 <Text style={styles.textLabel}>Password</Text>
