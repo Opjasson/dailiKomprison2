@@ -1,4 +1,5 @@
 import Input from "@/app/Components/Moleculs/Input";
+import Label from "@/app/Components/Moleculs/Label";
 import { NavigationProp } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
@@ -59,37 +60,26 @@ const Register: React.FC<props> = ({ navigation }) => {
                     </Text>
                     <Text style={styles.garisHead}></Text>
                 </View>
-               
+
+                <Label title="Email" />
                 <Input
                     keyboardType="email-address"
                     onChangeText={(text) => setEmail(text)}
                     placeholder="Masukan email anda"
                 />
 
-                <Text style={styles.textLabel}>Password</Text>
-                <TextInput
-                    style={{
-                        borderWidth: 1,
-                        marginBottom: 5,
-                        borderRadius: 5,
-                    }}
+                <Label title="Password" />
+                <Input
                     keyboardType="default"
-                    placeholder="Masukan password anda"
-                    secureTextEntry
                     onChangeText={(text) => setPassword(text)}
+                    placeholder="Masukan password anda"
                 />
 
-                <Text style={styles.textLabel}>Confirm Password</Text>
-                <TextInput
-                    style={{
-                        borderWidth: 1,
-                        marginBottom: 5,
-                        borderRadius: 5,
-                    }}
+                <Label title="Confirm Password" />
+                <Input
                     keyboardType="default"
-                    placeholder="Masukan ulang password anda"
-                    secureTextEntry
                     onChangeText={(text) => setConfPassword(text)}
+                    placeholder="Masukan ulang password anda"
                 />
 
                 <Text style={error ? styles.errorMsg : styles.hidden}>
