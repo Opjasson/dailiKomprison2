@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import db from "./config/database.js";
 import data from "./models/dataModels.js";
+import user from "./models/userModel.js"
 import dataRoute from "./routes/dataRoute.js";
 import cors from "cors";
 
@@ -10,7 +11,7 @@ const app = express();
 
 // Migrate DB otomatis
 // (async () => {
-//     await data.sync();
+//     await user.sync();
 // })();
 
 app.use(cors());
