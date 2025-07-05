@@ -42,7 +42,7 @@ const Register: React.FC<props> = ({ navigation }) => {
                 setError("Password dan confPassword tidak sama!");
             } else {
                 alert("Berhasil membuat akun");
-                navigation.navigate("Home");
+                navigation.navigate("Login");
             }
         } else {
             setError("Isi dengan lengkap!");
