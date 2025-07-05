@@ -4,6 +4,7 @@ import db from "./config/database.js";
 import data from "./models/dataModels.js";
 import user from "./models/userModel.js"
 import dataRoute from "./routes/dataRoute.js";
+import userRoute from "./routes/userRoute.js"
 import cors from "cors";
 
 dotenv.config();
@@ -17,6 +18,7 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+app.use(userRoute);
 app.use(dataRoute);
 
 app.listen(process.env.PORT, () => {
