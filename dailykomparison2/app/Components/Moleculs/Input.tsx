@@ -5,7 +5,7 @@ interface props {
     onChangeText: (text : string) => void;
     keyboardType: KeyboardTypeOptions;
     placeholder: string;
-    secureTextEntry? : boolean;
+    secureTextEntry? : boolean
 }
 
 const Input: React.FC<props> = ({

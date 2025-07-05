@@ -1,8 +1,10 @@
 import Input from "@/app/Components/Moleculs/Input";
 import Label from "@/app/Components/Moleculs/Label";
+import { BackgroundSP } from "@/app/Inventory/image";
 import { NavigationProp } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
+    Image,
     ScrollView,
     StatusBar,
     StyleSheet,
@@ -48,18 +50,16 @@ const Register: React.FC<props> = ({ navigation }) => {
     };
 
     return (
-        <ScrollView>
+        <ScrollView style={{ position: "relative" }}>
             <StatusBar barStyle={"light-content"} backgroundColor={"#1F1F1F"} />
+            <View style={styles.headPage}>
+                <Image style={styles.logo} source={BackgroundSP} />
+            </View>
+
             <View style={styles.containerForm}>
-                <View style={styles.headRegister}>
-                    <Text style={styles.headRegisterText1}>
-                        Halaman Register
-                    </Text>
-                    <Text style={styles.headRegisterText2}>
-                        Buat akun baru sebelum Login
-                    </Text>
-                    <Text style={styles.garisHead}></Text>
-                </View>
+        <Text style={styles.loginTitle}>
+            Register
+        </Text>
 
                 <Label title="Email" />
                 <Input
@@ -73,6 +73,7 @@ const Register: React.FC<props> = ({ navigation }) => {
                     keyboardType="default"
                     onChangeText={(text) => setPassword(text)}
                     placeholder="Masukan password anda"
+                    secureTextEntry={true}
                 />
 
                 <Label title="Confirm Password" />
@@ -80,53 +81,61 @@ const Register: React.FC<props> = ({ navigation }) => {
                     keyboardType="default"
                     onChangeText={(text) => setConfPassword(text)}
                     placeholder="Masukan ulang password anda"
+                    secureTextEntry={true}
                 />
 
-                <Text style={error ? styles.errorMsg : styles.hidden}>
-                    {error}
-                </Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={handleRegister}>
+                    <Text style={{ color: "white", fontSize : 15, fontWeight : "900" }}>Register</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.buatAkun}
+                    onPress={() => navigation.navigate("login")}>
+                    <Text>Sudah punya akun? Login disini</Text>
+                </TouchableOpacity>
             </View>
             {/* End Form */}
-
-            <TouchableOpacity style={styles.button} onPress={handleRegister}>
-                <Text style={{ color: "white" }}>Register</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={styles.buatAkun}
-                onPress={() => navigation.navigate("login")}>
-                <Text>Sudah punya akun? Login disini</Text>
-            </TouchableOpacity>
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    logo: {
+        height: 150,
+        width: 150,
+        marginHorizontal: "auto",
+    },
+    headPage: {
+        borderWidth: 3,
+        borderBottomEndRadius: 50,
+        borderBottomStartRadius: 50,
+        paddingBottom: 40,
+        backgroundColor: "#629DEA",
+    },
     containerForm: {
-        paddingHorizontal: 15,
-        paddingTop: 150,
+        width: "85%",
+        marginHorizontal: "auto",
+        backgroundColor: "#F8F5F5",
+        position: "absolute",
+        top: 165,
+        left: 30,
+        paddingHorizontal: 10,
+        paddingTop: 30,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderBottomEndRadius: 20,
+        borderBottomStartRadius: 20,
+        elevation: 10,
     },
-    headRegister: {
-        alignItems: "center",
-        marginBottom: 40,
-    },
-    headRegisterText1: {
-        fontSize: 30,
-        fontWeight: "900",
-        marginBottom: 10,
-        color: "#27548A",
-    },
-    headRegisterText2: {
-        fontSize: 20,
-        fontWeight: "light",
-    },
-    garisHead: {
-        borderBottomWidth: 3,
-        width: "70%",
-        marginTop: -10,
+    loginTitle: {
+        fontSize: 35,
+        textAlign: "center",
+        marginBottom: 30,
     },
     button: {
-        backgroundColor: "#27548A",
+        backgroundColor: "#629DEA",
         width: "80%",
         paddingVertical: 15,
         alignItems: "center",
