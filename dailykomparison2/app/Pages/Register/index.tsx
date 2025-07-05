@@ -39,13 +39,13 @@ const Register: React.FC<props> = ({ navigation }) => {
             });
 
             if (JSON.stringify(response.status) === "400") {
-                setError("Password dan confirm password salah!");
+                setError("Password dan confPassword tidak sama!");
             } else {
                 alert("Berhasil membuat akun");
                 navigation.navigate("Home");
             }
         } else {
-            setError("Isi semua formulir!");
+            setError("Isi dengan lengkap!");
         }
     };
 
@@ -58,6 +58,10 @@ const Register: React.FC<props> = ({ navigation }) => {
 
             <View style={styles.containerForm}>
                 <Text style={styles.loginTitle}>Register</Text>
+
+                <Text style={error ? styles.errorMsg : styles.hidden}>
+                    {error}
+                </Text>
 
                 <Label title="Email" />
                 <Input

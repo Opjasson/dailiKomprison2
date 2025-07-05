@@ -21,12 +21,11 @@ interface props {
 const Login: React.FC<props> = ({ navigation }) => {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
-    const [confPassword, setConfPassword] = useState<string>();
     const [error, setError] = useState<string>();
 
-    const handleRegister = async () => {
-        if (email && password && confPassword) {
-            const response = await fetch("http://192.168.106.220:8000/user", {
+    const handleLogin = async () => {
+        if (email && password) {
+            const response = await fetch("http://192.168.106.220:8000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -34,21 +33,18 @@ const Login: React.FC<props> = ({ navigation }) => {
                 body: JSON.stringify({
                     email: email,
                     password: password,
-                    confPassword: confPassword,
                 }),
             });
 
-            if (JSON.stringify(response.status) === "400") {
-                setError("Password dan confirm password salah!");
+            if (JSON.stringify(response.status) === "401") {
+                setError("Email atau password salah!");
             } else {
-                alert("Berhasil membuat akun");
-                navigation.navigate("Home");
+                navigation.navigate("kasir");
             }
         } else {
-            setError("Isi semua formulir!");
+            setError("Isi email dan password!");
         }
     };
-
     return (
         <ScrollView style={{ position: "relative" }}>
             <StatusBar barStyle={"light-content"} backgroundColor={"#1F1F1F"} />
@@ -74,31 +70,25 @@ const Login: React.FC<props> = ({ navigation }) => {
                     secureTextEntry={true}
                 />
 
-                <Label title="Confirm Password" />
-                <Input
-                    keyboardType="default"
-                    onChangeText={(text) => setConfPassword(text)}
-                    placeholder="Masukan ulang password anda"
-                    secureTextEntry={true}
-                />
+                <Text style={error ? styles.errorMsg : styles.hidden}>
+                    {error}
+                </Text>
 
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={handleRegister}>
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
                     <Text
                         style={{
                             color: "white",
                             fontSize: 15,
                             fontWeight: "900",
                         }}>
-                        Register
+                        Login
                     </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.buatAkun}
-                    onPress={() => navigation.navigate("login")}>
-                    <Text>Sudah punya akun? Login disini</Text>
+                    onPress={() => navigation.navigate("Register")}>
+                    <Text>Buat akunmu disini! Buat akun</Text>
                 </TouchableOpacity>
             </View>
             {/* End Form */}
