@@ -22,7 +22,7 @@ const Register: React.FC<props> = ({ navigation }) => {
 
     const handleRegister = async () => {
         if (email && password && confPassword) {
-            const response = await fetch("http://192.168.3.220:5000/user", {
+            const response = await fetch("http://192.168.106.220:8000/user", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const Register: React.FC<props> = ({ navigation }) => {
                 setError("Password dan confirm password salah!");
             } else {
                 alert("Berhasil membuat akun");
-                navigation.navigate("login");
+                navigation.navigate("Home");
             }
         } else {
             setError("Isi semua formulir!");

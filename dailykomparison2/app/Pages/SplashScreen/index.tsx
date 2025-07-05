@@ -29,7 +29,7 @@ const splashScreen: React.FC<props> = ({ navigation }) => {
                 </View>
                 <Button
                     style={styles.button}
-                    aksi={() => navigation.navigate("Home")}>
+                    aksi={() => navigation.navigate("Register")}>
                     Get Started
                 </Button>
             </View>
