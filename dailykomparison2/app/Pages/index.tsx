@@ -5,5 +5,7 @@ import SplashScreen from "./SplashScreen";
 import UpdatePage from "./Update";
 import Register from "./Register";
 import Login from "./Login";
+import Note from "./Note";
+import SetAkun from "./SetAkun";
 
-export { Home, Input, Ranking, SplashScreen, UpdatePage, Register, Login };
+export { Home, Input, Ranking, SplashScreen, UpdatePage, Register, Login, Note, SetAkun };

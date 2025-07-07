@@ -16,6 +16,8 @@ const Route = () => {
             <Stack.Screen name="Input" component={Input} />
             <Stack.Screen name="Rank" component={Ranking} />
             <Stack.Screen name="Update" component={UpdatePage} />
+            <Stack.Screen name="Note" component={UpdatePage} />
+            <Stack.Screen name="SetAkun" component={UpdatePage} />
         </Stack.Navigator>
     );
 };
