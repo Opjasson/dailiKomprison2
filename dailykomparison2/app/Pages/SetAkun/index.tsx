@@ -9,7 +9,24 @@ interface props {
 }
 
 const SetAkun: React.FC<props> = ({ navigation }) => {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState<
+        {
+            id: number;
+            email: string;
+        }[]
+    >([]);
+
+    // Get data lewat api
+    const fetchData = async () => {
+        const response = await fetch("http://192.168.106.220:8000/user");
+        const data = await response.json();
+        setUser(data);
+    };
+
+    console.log(user);
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -32,8 +49,14 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
                         height: 0,
                         width: "70%",
                     }}></Text>
-                <Text>Buat akun FO baru</Text>
+                <Text>Mengelola semua akun FO</Text>
             </View>
+
+            <Button
+                aksi={() => navigation.navigate("Register")}
+                style={styles.button}>
+                Tambah akun
+            </Button>
 
             <View
                 style={{
@@ -47,17 +70,22 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
                 <Text style={{ fontSize: 18, width: "60%" }}>Aksi</Text>
             </View>
 
-            <View
-                style={{
-                    flexDirection: "row",
-                    borderBottomWidth: 2,
-                    justifyContent: "space-between",
-                    width: "85%",
-                    marginHorizontal: "auto",
-                }}>
-                <Text style={{ fontSize: 18, width: "40%" }}>Email</Text>
-                <Text style={{ fontSize: 18, width: "60%" }}>Aksi</Text>
-            </View>
+            {user.map((item, index) => (
+                <View
+                    key={index}
+                    style={{
+                        flexDirection: "row",
+                        borderBottomWidth: 2,
+                        justifyContent: "space-between",
+                        width: "85%",
+                        marginHorizontal: "auto",
+                    }}>
+                    <Text style={{ fontSize: 18, width: "40%" }}>
+                        {item.email}
+                    </Text>
+                    <Text style={{ fontSize: 18, width: "60%" }}>Aksi</Text>
+                </View>
+            ))}
         </View>
     );
 };
@@ -69,7 +97,7 @@ const styles = StyleSheet.create({
         paddingBottom: 19,
         backgroundColor: "#3bb9f7",
         gap: 8,
-        marginBottom: 60,
+        marginBottom: 30,
     },
     textNav: {
         fontSize: 25,
@@ -84,11 +112,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     button: {
-        backgroundColor: "#3bb9f7",
-        width: 100,
+        backgroundColor: "#97B067",
+        width: 130,
         padding: 8,
         alignItems: "center",
         borderRadius: 9,
+        marginLeft: 10,
+        marginBottom: 10,
     },
     topBar: {
         flexDirection: "row",
