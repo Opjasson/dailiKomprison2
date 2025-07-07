@@ -2,17 +2,19 @@ import React from "react";
 import { TextInput, KeyboardTypeOptions } from "react-native";
 
 interface props {
-    onChangeText: (text : string) => void;
+    onChangeText: (text: string) => void;
     keyboardType: KeyboardTypeOptions;
     placeholder: string;
-    secureTextEntry? : boolean
+    secureTextEntry?: boolean;
+    value?: string;
 }
 
 const Input: React.FC<props> = ({
     onChangeText,
     keyboardType,
     placeholder,
-    secureTextEntry
+    secureTextEntry,
+    value,
 }) => {
     return (
         <TextInput
@@ -24,7 +26,8 @@ const Input: React.FC<props> = ({
             keyboardType={keyboardType}
             placeholder={placeholder}
             onChangeText={onChangeText}
-            secureTextEntry = {secureTextEntry}
+            secureTextEntry={secureTextEntry}
+            value={value}
         />
     );
 };

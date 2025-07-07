@@ -37,11 +37,6 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     const [RR, setRR] = useState<number>();
     // End state
 
-    // Pemberian Type data (Interface)
-    interface props {
-        navigation: NavigationProp<any, any>;
-    }
-
     interface RootStackParamList {
         Home: undefined;
     }

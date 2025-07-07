@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Home, Input, Ranking, Register, UpdatePage, SplashScreen, Login, Note, SetAkun } from "../Pages";
+import { Home, Input, Ranking, Register, UpdatePage, SplashScreen, Login, Note, SetAkun, UbahAkun } from "../Pages";
 
 
 const Stack = createStackNavigator();
@@ -18,6 +18,7 @@ const Route = () => {
             <Stack.Screen name="Update" component={UpdatePage} />
             <Stack.Screen name="Note" component={Note} />
             <Stack.Screen name="SetAkun" component={SetAkun} />
+            <Stack.Screen name="UbahAkun" component={UbahAkun} />
         </Stack.Navigator>
     );
 };

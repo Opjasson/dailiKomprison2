@@ -7,5 +7,17 @@ import Register from "./Register";
 import Login from "./Login";
 import Note from "./Note";
 import SetAkun from "./SetAkun";
+import UbahAkun from "./UbahAkun";
 
-export { Home, Input, Ranking, SplashScreen, UpdatePage, Register, Login, Note, SetAkun };
+export {
+    Home,
+    Input,
+    Ranking,
+    SplashScreen,
+    UpdatePage,
+    Register,
+    Login,
+    Note,
+    SetAkun,
+    UbahAkun,
+};

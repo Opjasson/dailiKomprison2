@@ -113,7 +113,10 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
                             width: "40%",
                             gap: 8,
                         }}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("UbahAkun", {
+                            id : item.id,
+                            data : item
+                        })}>
                             <Text style={{ fontSize: 18, color: "blue" }}>
                                 Ubah
                             </Text>
