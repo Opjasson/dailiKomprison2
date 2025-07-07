@@ -74,7 +74,7 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
             </View>
 
             <Button
-                aksi={() => navigation.navigate("Register")}
+                aksi={() => navigation.navigate("TambahAkun")}
                 style={styles.button}>
                 Tambah akun
             </Button>

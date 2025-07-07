@@ -1,10 +1,20 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Home, Input, Ranking, Register, UpdatePage, SplashScreen, Login, Note, SetAkun, UbahAkun } from "../Pages";
-
+import {
+    Home,
+    Input,
+    Ranking,
+    Register,
+    UpdatePage,
+    SplashScreen,
+    Login,
+    Note,
+    SetAkun,
+    UbahAkun,
+    TambahAkun,
+} from "../Pages";
 
 const Stack = createStackNavigator();
-
 
 const Route = () => {
     return (
@@ -19,6 +29,7 @@ const Route = () => {
             <Stack.Screen name="Note" component={Note} />
             <Stack.Screen name="SetAkun" component={SetAkun} />
             <Stack.Screen name="UbahAkun" component={UbahAkun} />
+            <Stack.Screen name="TambahAkun" component={TambahAkun} />
         </Stack.Navigator>
     );
 };

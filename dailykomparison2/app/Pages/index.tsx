@@ -8,6 +8,7 @@ import Login from "./Login";
 import Note from "./Note";
 import SetAkun from "./SetAkun";
 import UbahAkun from "./UbahAkun";
+import TambahAkun from "./TambahAkun";
 
 export {
     Home,
@@ -20,4 +21,5 @@ export {
     Note,
     SetAkun,
     UbahAkun,
+    TambahAkun
 };

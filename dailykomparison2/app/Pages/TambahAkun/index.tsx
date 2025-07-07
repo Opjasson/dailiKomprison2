@@ -23,37 +23,31 @@ interface props {
     route: RouteProp<any, any>;
 }
 
-const UbahAkun: React.FC<props> = ({ navigation, route }) => {
-    // Get id menggunakan params di previos page
-    const index = route.params?.id;
-    const sendData = route.params?.data;
+const TambahAkun: React.FC<props> = ({ navigation, route }) => {
 
-    const [email, setEmail] = useState<string>(sendData.email);
+    const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confPassword, setConfPassword] = useState<string>();
     const [error, setError] = useState<string>();
 
-    const handleUbah = async (id: number) => {
+    const handleRegister = async () => {
         if (email && password && confPassword) {
-            const response = await fetch(
-                `http://192.168.106.220:8000/user/${id}`,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password,
-                        confPassword: confPassword,
-                    }),
-                }
-            );
+            const response = await fetch("http://192.168.106.220:8000/user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    confPassword: confPassword,
+                }),
+            });
 
             if (JSON.stringify(response.status) === "400") {
                 setError("Password dan confPassword tidak sama!");
             } else {
-                alert("Berhasil merubah akun");
+                alert("Berhasil membuat akun");
                 navigation.navigate("SetAkun");
             }
         } else {
@@ -74,7 +68,7 @@ const UbahAkun: React.FC<props> = ({ navigation, route }) => {
 
             <View style={styles.headInfo}>
                 <Text style={{ fontSize: 26, fontWeight: "700" }}>
-                    Halaman Ubah akun
+                    Halaman Tambah akun FO
                 </Text>
                 <Text
                     style={{
@@ -82,7 +76,7 @@ const UbahAkun: React.FC<props> = ({ navigation, route }) => {
                         height: 0,
                         width: "70%",
                     }}></Text>
-                <Text>Ubah akun yang ingin dirubah</Text>
+                <Text>Isi formulir dengan lengkap lalu kirim!</Text>
             </View>
 
             {/* Form Update */}
@@ -97,7 +91,6 @@ const UbahAkun: React.FC<props> = ({ navigation, route }) => {
                         keyboardType="email-address"
                         onChangeText={(text) => setEmail(text)}
                         placeholder="Masukan email anda"
-                        value={`${email}`}
                     />
 
                     <Label title="Password" />
@@ -119,12 +112,12 @@ const UbahAkun: React.FC<props> = ({ navigation, route }) => {
                 {/* End Form */}
 
                 <Button
-                    aksi={() => handleUbah(index)}
+                    aksi={handleRegister}
                     style={[
                         styles.button,
                         { marginHorizontal: "auto", width: 190, marginTop: 10 },
                     ]}>
-                    Ubah akun
+                    Buat akun
                 </Button>
             </ScrollView>
         </View>
@@ -183,4 +176,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default UbahAkun;
+export default TambahAkun;
