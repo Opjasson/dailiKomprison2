@@ -1,3 +1,4 @@
+import Layouts from "@/app/Components/Layouts/Layouts";
 import Button from "@/app/Components/Moleculs/Button";
 import { NavigationProp } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
@@ -11,10 +12,11 @@ const Ranking: React.FC<props> = ({ navigation }) => {
     const [data, setData] = useState<
         { hotel: string; RR: number; createdAt: string }[]
     >([]);
-    const [tanggal, setTanggal] = useState(new Date());
+
+    const [date, setDate] = useState(new Date());
 
     async function getData() {
-        const response = await fetch("http://192.168.3.220:8000/data");
+        const response = await fetch("http://192.168.106.220:8000/data");
         const json = await response.json();
 
         // Mengurutkan data RR dari yang terbesar
@@ -38,26 +40,25 @@ const Ranking: React.FC<props> = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="#3bb9f7" barStyle="light-content" />
-            <View style={styles.navbar}>
-                <Text style={styles.textNav}>Ranking</Text>
-            </View>
-            <View style={styles.topBar}>
-                <Button
-                    aksi={() => navigation.navigate("Home")}
-                    style={styles.button}>
-                    HOME
-                </Button>
+            <Layouts
+                navigateHome={() => navigation.navigate("Home")}
+                navigateInput={() => navigation.navigate("Input")}
+                navigateNote={() => navigation.navigate("Rank")}
+                navigateRanking={() => navigation.navigate("Rank")}
+                navigateSetAkun={() => navigation.navigate("Rank")}
+            />
 
-                <Button
-                    aksi={() => navigation.navigate("Input")}
-                    style={styles.button}>
-                    INPUT
-                </Button>
-                <Button
-                    aksi={() => navigation.navigate("Rank")}
-                    style={styles.button}>
-                    RANKING
-                </Button>
+            <View style={styles.headInfo}>
+                <Text style={{ fontSize: 26, fontWeight: "700" }}>
+                    Halaman Ranking
+                </Text>
+                <Text
+                    style={{
+                        borderBottomWidth: 2,
+                        height: 0,
+                        width: "70%",
+                    }}></Text>
+                <Text>Menampilkan ranking hotel per hari</Text>
             </View>
 
             <View style={styles.containerRank}>
@@ -96,6 +97,15 @@ const Ranking: React.FC<props> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    headInfo: {
+        borderRadius: 15,
+        padding: 5,
+        paddingHorizontal: 10,
+        paddingBottom: 19,
+        backgroundColor: "#3bb9f7",
+        gap: 8,
+        marginBottom: 60,
+    },
     textNav: {
         fontSize: 25,
         fontWeight: "bold",
