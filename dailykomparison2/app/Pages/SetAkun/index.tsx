@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, StatusBar } from "react-native";
+import {
+    Text,
+    View,
+    StyleSheet,
+    StatusBar,
+    TouchableOpacity,
+    Alert,
+} from "react-native";
 import Layouts from "@/app/Components/Layouts/Layouts";
 import Button from "@/app/Components/Moleculs/Button";
 import { NavigationProp } from "@react-navigation/native";
@@ -21,6 +28,20 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
         const response = await fetch("http://192.168.106.220:8000/user");
         const data = await response.json();
         setUser(data);
+    };
+
+    // Get data lewat api
+    const deleteAkun = async (id: number) => {
+        const response = await fetch(`http://192.168.106.220:8000/user/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (response) {
+            Alert.alert("Data berhasl dihapus!");
+            navigation.navigate("Home")
+        }
     };
 
     console.log(user);
@@ -61,13 +82,15 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
             <View
                 style={{
                     flexDirection: "row",
+                    borderTopWidth: 2,
                     borderBottomWidth: 2,
                     justifyContent: "space-between",
                     width: "85%",
                     marginHorizontal: "auto",
+                    marginBottom: 10,
                 }}>
-                <Text style={{ fontSize: 18, width: "40%" }}>Email</Text>
-                <Text style={{ fontSize: 18, width: "60%" }}>Aksi</Text>
+                <Text style={{ fontSize: 18, width: "60%" }}>Email</Text>
+                <Text style={{ fontSize: 18, width: "40%" }}>Aksi</Text>
             </View>
 
             {user.map((item, index) => (
@@ -79,11 +102,28 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
                         justifyContent: "space-between",
                         width: "85%",
                         marginHorizontal: "auto",
+                        marginBottom: 8,
                     }}>
-                    <Text style={{ fontSize: 18, width: "40%" }}>
+                    <Text style={{ fontSize: 18, width: "60%" }}>
                         {item.email}
                     </Text>
-                    <Text style={{ fontSize: 18, width: "60%" }}>Aksi</Text>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            width: "40%",
+                            gap: 8,
+                        }}>
+                        <TouchableOpacity>
+                            <Text style={{ fontSize: 18, color: "blue" }}>
+                                Ubah
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => deleteAkun(item.id)}>
+                            <Text style={{ fontSize: 18, color: "red" }}>
+                                Hapus
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             ))}
         </View>
