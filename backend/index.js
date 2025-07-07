@@ -4,6 +4,7 @@ import db from "./config/database.js";
 import data from "./models/dataModels.js";
 import user from "./models/userModel.js";
 import Login from "./models/loginModels.js";
+import Jadwal from "./models/noteModels.js";
 import dataRoute from "./routes/dataRoute.js";
 import userRoute from "./routes/userRoute.js";
 import authRoute from "./routes/authRoute.js";
@@ -14,8 +15,10 @@ const app = express();
 
 // Migrate DB otomatis
 // (async () => {
-//     await Login.sync();
+//     await Jadwal.sync();
 // })();
+
+
 app.use(cors());
 
 app.use(express.json());
