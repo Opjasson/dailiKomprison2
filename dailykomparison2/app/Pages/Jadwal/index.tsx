@@ -15,43 +15,62 @@ interface props {
     navigation: NavigationProp<any, any>;
 }
 
-const Jadwal : React.FC <props> = ({navigation}) => {
-  return (
-      <View style={styles.container}>
-          <StatusBar backgroundColor="#3bb9f7" barStyle="light-content" />
-          <Layouts
-              navigateHome={() => navigation.navigate("Home")}
-              navigateInput={() => navigation.navigate("Input")}
-              navigateNote={() => navigation.navigate("Note")}
-              navigateRanking={() => navigation.navigate("Rank")}
-              navigateSetAkun={() => navigation.navigate("SetAkun")}
-          />
+const Jadwal: React.FC<props> = ({ navigation }) => {
+    return (
+        <View style={styles.container}>
+            <StatusBar backgroundColor="#3bb9f7" barStyle="light-content" />
+            <Layouts
+                navigateHome={() => navigation.navigate("Home")}
+                navigateInput={() => navigation.navigate("Input")}
+                navigateNote={() => navigation.navigate("Note")}
+                navigateRanking={() => navigation.navigate("Rank")}
+                navigateSetAkun={() => navigation.navigate("SetAkun")}
+            />
 
-          <View style={styles.headInfo}>
-              <Text style={{ fontSize: 26, fontWeight: "700" }}>
-                  Halaman jadwal
-              </Text>
-              <Text
-                  style={{
-                      borderBottomWidth: 2,
-                      height: 0,
-                      width: "70%",
-                  }}></Text>
-              <Text>Mengelola jadwal acara dan meeting</Text>
-          </View>
+            <View style={styles.headInfo}>
+                <Text style={{ fontSize: 26, fontWeight: "700" }}>
+                    Halaman jadwal
+                </Text>
+                <Text
+                    style={{
+                        borderBottomWidth: 2,
+                        height: 0,
+                        width: "70%",
+                    }}></Text>
+                <Text>Mengelola jadwal acara dan meeting</Text>
+            </View>
 
-          <Button
-              aksi={() => navigation.navigate("TambahAkun")}
-              style={styles.button}>
-              Tambah jadwal
-          </Button>
+            <Button
+                aksi={() => navigation.navigate("TambahAkun")}
+                style={styles.button}>
+                Tambah jadwal
+            </Button>
 
-          
-      </View>
-  );
-}
+            <View style={{ backgroundColor: "#E5E0D8", padding : 20, borderRadius : 20, width : "88%", marginHorizontal: "auto", gap : 10 }}>
+                <Text style={{ fontSize : 15, textDecorationLine : "underline" }}>12-3-2025</Text>
+                <Text style={{ borderBottomWidth : 3 }}>Staf : Ferri adi</Text>
+                <Text style={{ fontSize : 18, fontWeight : "700" }}>Merancang strategi pekembangan hotel</Text>
+                <Text>
+                    Front office : memaksimalkan kinerja dan sopan santun f&b
+                    division : catatan stok bahan baku masih kurang lengkap
+                </Text>
+
+                <Button aksi={() => alert("hallo")} style={styles.deleteCard} styleTitle={styles.deleteText}>Delete</Button>
+            </View>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
+    deleteText : {
+        textAlign : "center",
+        color : "white"
+    },
+    deleteCard : {
+        backgroundColor : "red",
+        width : 80,
+        borderRadius : 10
+    },
     headInfo: {
         borderRadius: 15,
         padding: 5,
@@ -120,4 +139,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Jadwal
+export default Jadwal;

@@ -14,7 +14,7 @@ const Jadwal = db.define(
             },
         },
         deskripsi: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             validate: {
                 notEmpty: true,
