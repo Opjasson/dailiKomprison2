@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Text,
     View,
@@ -16,6 +16,9 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import Fontisto from "@expo/vector-icons/Fontisto";
+import * as Print from "expo-print";
+import * as Sharing from "expo-sharing";
+import * as FileSystem from "expo-file-system";
 
 interface props {
     navigation: NavigationProp<any, any>;
@@ -53,6 +56,7 @@ const Home: React.FC<props> = ({ navigation }) => {
         setData(data);
     };
 
+    // convert tanggal menjadi string
     const dateNow = date.toISOString().split("T")[0];
 
     // komponen did amount
@@ -73,7 +77,82 @@ const Home: React.FC<props> = ({ navigation }) => {
 
     // grouping data berdasarkan tanggal data dibuat
     const groupData = _.groupBy(dataAsli, "createdAt");
-    console.log(groupData);
+    // console.log(groupData);
+
+    const getDataHotel = Object.values(groupData).map((item) =>
+        item.filter((a, index) => {
+            return a.createdAt === dateNow;
+        })
+    );
+
+    const getDoneData = getDataHotel.filter((array) => {
+        return array.length > 0;
+    });
+      
+
+    const generateHTML = () => {
+        const rows = Object.values(getDoneData)[0]
+            ?.map(
+                (item, index) => `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${item.hotel}</td>
+            <td>Rp ${item.RR.toLocaleString()}</td>
+            <td>Rp  ${item.ARR.toLocaleString()}</td>
+            <td>${item.RNA}</td>
+            <td>${item.RNO}</td>
+            <td>${item.OCC}%</td>
+          </tr>
+        `
+            )
+            .join("");
+
+        return `
+          <html>
+            <head>
+              <style>
+                table { width: 100%; border-collapse: collapse; }
+                th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+                th { background-color: #f2f2f2; }
+              </style>
+            </head>
+            <body>
+              <h1>Data penjualan hotel</h1>
+              <p>${dateNow}</p>
+              <table>
+                <tr>
+                  <th>No</th>
+                  <th>Hotel</th>
+                  <th>RR</th>
+                  <th>ARR</th>
+                  <th>RNA</th>
+                  <th>RNO</th>
+                  <th>OCCP</th>
+                </tr>
+                ${rows}
+              </table>
+            </body>
+          </html>
+        `;
+    };
+      
+
+    const handleSavePdf = async () => {
+        const htmlContent = generateHTML();
+        const { uri } = await Print.printToFileAsync({
+            html: htmlContent,
+        });
+
+        const customFileName = `Data_DailyComparison_${dateNow}.pdf`;
+        const newUri = FileSystem.documentDirectory + customFileName;
+
+        await FileSystem.moveAsync({
+            from: uri,
+            to: newUri,
+        });
+      
+        await Sharing.shareAsync(newUri); // Menyimpan atau kirim PDF
+    };
 
     const showDatepicker = () => {
         DateTimePickerAndroid.open({
@@ -176,91 +255,79 @@ const Home: React.FC<props> = ({ navigation }) => {
                 {dateNow}
             </Button>
 
-            <View>
-                <TouchableOpacity>
-                    <Text>Cetak</Text>
-                </TouchableOpacity>
-            </View>
+            <Button aksi={handleSavePdf} style={styles.buttonCetak}>
+                Cetak
+            </Button>
             {/* Table content */}
 
-            {Object.keys(groupData).map((key, index) => (
-                <View key={index} style={styles.contentCon}>
-                    <Text key={index}>{key}</Text>
-                    <View
+
+            <View style={styles.contentCon}>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        marginBottom: 3,
+                        borderBottomWidth: 2,
+                        backgroundColor: "#ede9e8",
+                    }}>
+                    <Text style={{ width: 60 }}>{head[0]}</Text>
+                    <Text
+                        style={{
+                            width: 80,
+                            paddingLeft: 6,
+                            backgroundColor: "#ded5d3",
+                        }}>
+                        {head[4]}
+                    </Text>
+                    <Text
+                        style={{
+                            width: 70,
+                            paddingLeft: 6,
+                            backgroundColor: "#ded5d3",
+                        }}>
+                        {head[2]}
+                    </Text>
+                    <Text>{head[3]}</Text>
+                    <Text>{head[1]}</Text>
+
+                    <Text style={{ width: 80 }}>{head[5]}</Text>
+                </View>
+
+                {Object.values(getDoneData)[0]?.map((item, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        onPress={() =>
+                            navigation.navigate("Update", {
+                                id: item.id,
+                                data: item,
+                            })
+                        }
                         style={{
                             flexDirection: "row",
                             justifyContent: "space-between",
-                            marginBottom: 3,
-                            borderBottomWidth: 2,
-                            backgroundColor: "#ede9e8",
+                            marginBottom: 5,
                         }}>
-                        <Text style={{ width: 60 }}>{head[0]}</Text>
-                        <Text
-                            style={{
-                                width: 80,
-                                paddingLeft: 6,
-                                backgroundColor: "#ded5d3",
-                            }}>
-                            {head[4]}
-                        </Text>
-                        <Text
-                            style={{
-                                width: 70,
-                                paddingLeft: 6,
-                                backgroundColor: "#ded5d3",
-                            }}>
-                            {head[2]}
-                        </Text>
-                        <Text>{head[3]}</Text>
-                        <Text>{head[1]}</Text>
-
-                        <Text style={{ width: 80 }}>{head[5]}</Text>
-                    </View>
-
-                    {[
-                        Object.values(groupData[key])
-                            .sort((a, b) => b.id - a.id)
-                            .map((item, index) => (
-                                <TouchableOpacity
-                                    key={index}
-                                    onPress={() =>
-                                        navigation.navigate("Update", {
-                                            id: item.id,
-                                            data: item,
-                                        })
-                                    }
-                                    style={{
-                                        flexDirection: "row",
-                                        justifyContent: "space-between",
-                                        marginBottom: 5,
-                                    }}>
-                                    <View style={{ width: 70 }}>
-                                        <Text>{item.hotel}</Text>
-                                    </View>
-                                    <View style={{ width: 90, paddingLeft: 0 }}>
-                                        <Text>
-                                            {item.RR.toLocaleString("id-ID")}
-                                        </Text>
-                                    </View>
-                                    <View style={{ width: 70 }}>
-                                        <Text>
-                                            {item.ARR.toLocaleString("id-ID")}
-                                        </Text>
-                                    </View>
-                                    <View style={{ width: 37 }}>
-                                        <Text>{item.RNA}</Text>
-                                    </View>
-                                    <View style={{ width: 37 }}>
-                                        <Text>{item.RNO}</Text>
-                                    </View>
-                                    <View style={{ width: 80 }}>
-                                        <Text>{item.OCC}%</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            )),
-                    ]}
-                </View>
-            ))}
+                        <View style={{ width: 70 }}>
+                            <Text>{item.hotel}</Text>
+                        </View>
+                        <View style={{ width: 90, paddingLeft: 0 }}>
+                            <Text>{item.RR.toLocaleString("id-ID")}</Text>
+                        </View>
+                        <View style={{ width: 70 }}>
+                            <Text>{item.ARR.toLocaleString("id-ID")}</Text>
+                        </View>
+                        <View style={{ width: 37 }}>
+                            <Text>{item.RNA}</Text>
+                        </View>
+                        <View style={{ width: 37 }}>
+                            <Text>{item.RNO}</Text>
+                        </View>
+                        <View style={{ width: 80 }}>
+                            <Text>{item.OCC}%</Text>
+                        </View>
+                    </TouchableOpacity>
+                ))}
+            </View>
             {/* End Table Content */}
         </View>
     );
@@ -272,7 +339,7 @@ const styles = StyleSheet.create({
         width: 130,
         flexDirection: "row",
         gap: 5,
-        marginBottom: 40,
+        marginBottom: 20,
         marginTop: 20,
         marginLeft: 10,
         paddingHorizontal: 8,
@@ -306,6 +373,15 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+    },
+    buttonCetak: {
+        backgroundColor: "#97B067",
+        width: 50,
+        borderWidth: 1,
+        marginLeft: 15,
+        marginBottom: 15,
+        padding: 3,
+        borderRadius: 5,
     },
     button: {
         backgroundColor: "#3bb9f7",
