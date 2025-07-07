@@ -172,9 +172,9 @@ const Home: React.FC<props> = ({ navigation }) => {
             <Layouts
                 navigateHome={() => navigation.navigate("Home")}
                 navigateInput={() => navigation.navigate("Input")}
-                navigateNote={() => navigation.navigate("Rank")}
+                navigateNote={() => navigation.navigate("Note")}
                 navigateRanking={() => navigation.navigate("Rank")}
-                navigateSetAkun={() => navigation.navigate("Rank")}
+                navigateSetAkun={() => navigation.navigate("SetAkun")}
             />
 
             <View style={styles.headInfo}>

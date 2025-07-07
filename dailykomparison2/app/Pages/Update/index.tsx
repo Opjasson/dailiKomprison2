@@ -164,9 +164,9 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
             <Layouts
                 navigateHome={() => navigation.navigate("Home")}
                 navigateInput={() => navigation.navigate("Input")}
-                navigateNote={() => navigation.navigate("Rank")}
+                navigateNote={() => navigation.navigate("Note")}
                 navigateRanking={() => navigation.navigate("Rank")}
-                navigateSetAkun={() => navigation.navigate("Rank")}
+                navigateSetAkun={() => navigation.navigate("SetAkun")}
             />
 
             <View style={styles.headInfo}>
