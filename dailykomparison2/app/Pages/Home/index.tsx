@@ -9,6 +9,11 @@ import {
 import { NavigationProp } from "@react-navigation/native";
 import Button from "@/app/Components/Moleculs/Button";
 import _ from "lodash";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Entypo from "@expo/vector-icons/Entypo";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 interface props {
     navigation: NavigationProp<any, any>;
@@ -64,23 +69,74 @@ const Home: React.FC<props> = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar backgroundColor="#3bb9f7" barStyle="light-content" />
             <View style={styles.navbar}>
-                <Text style={styles.textNav}>Home</Text>
+                <FontAwesome
+                    name="user"
+                    size={50}
+                    color="black"
+                    style={{ textAlign: "center", paddingTop: 8 }}
+                />
+                <View>
+                    <Text style={styles.textNav}>Hello</Text>
+                    <Text style={styles.textUser}>Ferri adi FO</Text>
+                </View>
             </View>
             <View style={styles.topBar}>
                 <Button
+                    simbol={<Entypo name="home" size={24} color="black" />}
                     aksi={() => navigation.navigate("Home")}
-                    style={styles.button}
-                >HOME</Button>
+                    style={styles.button}>
+                    HOME
+                </Button>
 
                 <Button
+                    simbol={<Entypo name="pencil" size={24} color="black" />}
                     aksi={() => navigation.navigate("Input")}
-                    style={styles.button}
-                >INPUT</Button>
+                    style={styles.button}>
+                    INPUT
+                </Button>
                 <Button
+                    simbol={
+                        <FontAwesome5 name="book" size={24} color="black" />
+                    }
                     aksi={() => navigation.navigate("Rank")}
-                    style={styles.button}
-                >RANKING</Button>
+                    style={styles.button}>
+                    Note
+                </Button>
+
+                <Button
+                    simbol={
+                        <FontAwesome6
+                            name="ranking-star"
+                            size={24}
+                            color="black"
+                        />
+                    }
+                    aksi={() => navigation.navigate("Rank")}
+                    style={styles.button}>
+                    RANKING
+                </Button>
+
+                <Button
+                    simbol={
+                        <MaterialCommunityIcons
+                            name="account-settings"
+                            size={28}
+                            color="black"
+                        />
+                    }
+                    aksi={() => navigation.navigate("Rank")}
+                    style={styles.button}>
+                    Set Akun
+                </Button>
             </View>
+
+            <View style={styles.headInfo}>
+                <Text style={{ fontSize : 26, fontWeight : "700" }}>Halaman Home</Text>
+                <Text style={{ borderBottomWidth : 2, height: 0, width : "70%" }}></Text>
+                <Text>Filter data Berdasarkan tanggal</Text>
+            </View>
+
+            
 
             {/* Table content */}
 
@@ -139,10 +195,14 @@ const Home: React.FC<props> = ({ navigation }) => {
                                         <Text>{item.hotel}</Text>
                                     </View>
                                     <View style={{ width: 90, paddingLeft: 0 }}>
-                                        <Text>{item.RR.toLocaleString("id-ID")}</Text>
+                                        <Text>
+                                            {item.RR.toLocaleString("id-ID")}
+                                        </Text>
                                     </View>
-                                    <View style={{ width: 70}}>
-                                        <Text>{item.ARR.toLocaleString("id-ID")}</Text>
+                                    <View style={{ width: 70 }}>
+                                        <Text>
+                                            {item.ARR.toLocaleString("id-ID")}
+                                        </Text>
                                     </View>
                                     <View style={{ width: 37 }}>
                                         <Text>{item.RNA}</Text>
@@ -164,29 +224,49 @@ const Home: React.FC<props> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    headInfo: {
+        borderRadius: 15,
+        padding: 5,
+        paddingHorizontal: 10,
+        paddingBottom : 19,
+        backgroundColor: "#3bb9f7",
+        gap : 8
+    },
     textNav: {
         fontSize: 25,
-        fontWeight: "bold",
+        fontWeight: "500",
+    },
+    textUser: {
+        fontSize: 15,
     },
     navbar: {
         padding: 7,
-        marginBottom: 40,
-        backgroundColor: "#3bb9f7",
+        marginBottom: 26,
+        backgroundColor: "#ffff",
+        flexDirection: "row",
+        gap: 5,
+        borderBottomWidth: 1.5,
+        elevation: 5,
     },
     container: {
         flex: 1,
     },
     button: {
         backgroundColor: "#3bb9f7",
-        width: 100,
         padding: 8,
         alignItems: "center",
         borderRadius: 9,
+        flexDirection: "row",
+        gap: 5,
+        marginBottom: 20,
     },
     topBar: {
         flexDirection: "row",
         justifyContent: "space-around",
         marginBottom: 30,
+        flexWrap: "wrap",
+        width: 370,
+        marginHorizontal: "auto",
     },
     contentCon: {
         width: 400,
