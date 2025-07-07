@@ -12,6 +12,7 @@ import {
     SetAkun,
     UbahAkun,
     TambahAkun,
+    Jadwal,
 } from "../Pages";
 
 const Stack = createStackNavigator();
@@ -26,7 +27,7 @@ const Route = () => {
             <Stack.Screen name="Input" component={Input} />
             <Stack.Screen name="Rank" component={Ranking} />
             <Stack.Screen name="Update" component={UpdatePage} />
-            <Stack.Screen name="Note" component={Note} />
+            <Stack.Screen name="Note" component={Jadwal} />
             <Stack.Screen name="SetAkun" component={SetAkun} />
             <Stack.Screen name="UbahAkun" component={UbahAkun} />
             <Stack.Screen name="TambahAkun" component={TambahAkun} />

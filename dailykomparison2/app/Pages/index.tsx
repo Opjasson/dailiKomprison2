@@ -5,7 +5,7 @@ import SplashScreen from "./SplashScreen";
 import UpdatePage from "./Update";
 import Register from "./Register";
 import Login from "./Login";
-import Note from "./Note";
+import Jadwal from "./Jadwal";
 import SetAkun from "./SetAkun";
 import UbahAkun from "./UbahAkun";
 import TambahAkun from "./TambahAkun";
@@ -18,7 +18,7 @@ export {
     UpdatePage,
     Register,
     Login,
-    Note,
+    Jadwal,
     SetAkun,
     UbahAkun,
     TambahAkun
