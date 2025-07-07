@@ -1,3 +1,4 @@
+import Layouts from "@/app/Components/Layouts/Layouts";
 import Button from "@/app/Components/Moleculs/Button";
 import { Picker } from "@react-native-picker/picker";
 import {
@@ -28,11 +29,6 @@ const InputData: React.FC<props> = ({ navigation }) => {
     const [ARR, setARR] = useState<number>();
     const [RNA, setRNA] = useState<number>();
     // End state
-
-    // Pemberian Type data (Interface)
-    interface props {
-        navigation: NavigationProp<any, any>;
-    }
 
     interface RootStackParamList {
         Home: undefined;
@@ -128,26 +124,25 @@ const InputData: React.FC<props> = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="#03c0ff" barStyle="light-content" />
-            <View style={styles.navbar}>
-                <Text style={styles.textNav}>Input</Text>
-            </View>
-            <View style={styles.topBar}>
-                <Button
-                    aksi={() => navigation.navigate("Home")}
-                    style={styles.button}>
-                    HOME
-                </Button>
+            <Layouts
+                navigateHome={() => navigation.navigate("Home")}
+                navigateInput={() => navigation.navigate("Input")}
+                navigateNote={() => navigation.navigate("Rank")}
+                navigateRanking={() => navigation.navigate("Rank")}
+                navigateSetAkun={() => navigation.navigate("Rank")}
+            />
 
-                <Button
-                    aksi={() => navigation.navigate("Input")}
-                    style={styles.button}>
-                    INPUT
-                </Button>
-                <Button
-                    aksi={() => navigation.navigate("Rank")}
-                    style={styles.button}>
-                    RANKING
-                </Button>
+            <View style={styles.headInfo}>
+                <Text style={{ fontSize: 26, fontWeight: "700" }}>
+                    Halaman Input
+                </Text>
+                <Text
+                    style={{
+                        borderBottomWidth: 2,
+                        height: 0,
+                        width: "70%",
+                    }}></Text>
+                <Text>Lengkapi semua formulir yang ada</Text>
             </View>
 
             {/* Form Update */}
@@ -251,14 +246,24 @@ const InputData: React.FC<props> = ({ navigation }) => {
                     style={[
                         styles.button,
                         { marginHorizontal: "auto", width: 190, marginTop: 10 },
-                    ]}
-                >Kirim</Button>
+                    ]}>
+                    Kirim
+                </Button>
             </ScrollView>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    headInfo: {
+        borderRadius: 15,
+        padding: 5,
+        paddingHorizontal: 10,
+        paddingBottom: 19,
+        backgroundColor: "#3bb9f7",
+        gap: 8,
+        marginBottom: 10,
+    },
     textNav: {
         fontSize: 25,
         fontWeight: "bold",

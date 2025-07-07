@@ -14,11 +14,12 @@ import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import Fontisto from "@expo/vector-icons/Fontisto";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
+import Layouts from "@/app/Components/Layouts/Layouts";
 
 interface props {
     navigation: NavigationProp<any, any>;
@@ -167,73 +168,14 @@ const Home: React.FC<props> = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="#3bb9f7" barStyle="light-content" />
-            <View style={styles.navbar}>
-                <FontAwesome
-                    name="user"
-                    size={50}
-                    color="black"
-                    style={{ textAlign: "center", paddingTop: 8 }}
-                />
-                <View>
-                    <Text style={styles.textNav}>Hello</Text>
-                    <Text style={styles.textUser}>Ferri adi FO</Text>
-                </View>
-            </View>
 
-            <View style={styles.topBar}>
-                <Button
-                    styleTitle={{ color: "white", fontWeight: 800 }}
-                    simbol={<Entypo name="home" size={24} color="black" />}
-                    aksi={() => navigation.navigate("Home")}
-                    style={styles.button}>
-                    HOME
-                </Button>
-
-                <Button
-                    styleTitle={{ color: "white", fontWeight: 800 }}
-                    simbol={<Entypo name="pencil" size={24} color="black" />}
-                    aksi={() => navigation.navigate("Input")}
-                    style={styles.button}>
-                    INPUT
-                </Button>
-                <Button
-                    styleTitle={{ color: "white", fontWeight: 800 }}
-                    simbol={
-                        <FontAwesome5 name="book" size={24} color="black" />
-                    }
-                    aksi={() => navigation.navigate("Rank")}
-                    style={styles.button}>
-                    Note
-                </Button>
-
-                <Button
-                    styleTitle={{ color: "white", fontWeight: 800 }}
-                    simbol={
-                        <FontAwesome6
-                            name="ranking-star"
-                            size={24}
-                            color="black"
-                        />
-                    }
-                    aksi={() => navigation.navigate("Rank")}
-                    style={styles.button}>
-                    RANKING
-                </Button>
-
-                <Button
-                    styleTitle={{ color: "white", fontWeight: 800 }}
-                    simbol={
-                        <MaterialCommunityIcons
-                            name="account-settings"
-                            size={28}
-                            color="black"
-                        />
-                    }
-                    aksi={() => navigation.navigate("Rank")}
-                    style={styles.button}>
-                    Set Akun
-                </Button>
-            </View>
+            <Layouts
+                navigateHome={() => navigation.navigate("Home")}
+                navigateInput={() => navigation.navigate("Input")}
+                navigateNote={() => navigation.navigate("Rank")}
+                navigateRanking={() => navigation.navigate("Rank")}
+                navigateSetAkun={() => navigation.navigate("Rank")}
+            />
 
             <View style={styles.headInfo}>
                 <Text style={{ fontSize: 26, fontWeight: "700" }}>
@@ -259,7 +201,6 @@ const Home: React.FC<props> = ({ navigation }) => {
                 Cetak
             </Button>
             {/* Table content */}
-
 
             <View style={styles.contentCon}>
                 <View
