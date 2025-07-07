@@ -8,6 +8,8 @@ import Jadwal from "./models/noteModels.js";
 import dataRoute from "./routes/dataRoute.js";
 import userRoute from "./routes/userRoute.js";
 import authRoute from "./routes/authRoute.js";
+import jadwalRoute from "./routes/jadwalRoute.js" 
+
 import cors from "cors";
 
 dotenv.config();
@@ -25,6 +27,7 @@ app.use(express.json());
 app.use(userRoute);
 app.use(authRoute);
 app.use(dataRoute);
+app.use(jadwalRoute);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port http://localhost:${process.env.PORT}`);

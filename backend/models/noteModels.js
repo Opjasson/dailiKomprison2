@@ -21,12 +21,12 @@ const Jadwal = db.define(
             },
         },
         date: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true,
             },
-        },
+        },  
         staf: {
             type: DataTypes.STRING,
             allowNull: false,
