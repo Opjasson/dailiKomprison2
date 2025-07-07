@@ -5,17 +5,17 @@ import { Text, TouchableOpacity } from "react-native"
 interface Buttonprops {
     children: React.ReactNode;
     aksi: () => void;
-    style: any;
+    style?: any;
     disabled?: boolean;
-    simbol: React.ReactNode;
+    simbol?: React.ReactNode;
+    styleTitle? : any
 }
 
-const Button = ({style,aksi,children,disabled, simbol} : Buttonprops) => {
+const Button = ({style,aksi,children,disabled, simbol, styleTitle} : Buttonprops) => {
   return (
       <TouchableOpacity disabled={disabled} style={style} onPress={aksi}>
         {simbol}
-          
-          <Text style={{ color: "white", fontWeight: 800 }}>{children}</Text>
+          <Text style={styleTitle}>{children}</Text>
       </TouchableOpacity>
   );
 }

@@ -14,6 +14,8 @@ import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import Fontisto from "@expo/vector-icons/Fontisto";
 
 interface props {
     navigation: NavigationProp<any, any>;
@@ -42,12 +44,16 @@ const Home: React.FC<props> = ({ navigation }) => {
         "OCC%",
     ]);
 
+    const [date, setDate] = useState(new Date());
+
     // Get data lewat api
     const fetchData = async () => {
-        const response = await fetch("http://192.168.3.220:8000/data");
+        const response = await fetch("http://192.168.106.220:8000/data");
         const data = await response.json();
         setData(data);
     };
+
+    const dateNow = date.toISOString().split("T")[0];
 
     // komponen did amount
     useEffect(() => {
@@ -60,9 +66,23 @@ const Home: React.FC<props> = ({ navigation }) => {
         return { ...item, createdAt: tanggalBaru };
     });
 
+    const onChange = (event: any, selectedDate: any) => {
+        const currentDate = selectedDate || date;
+        setDate(currentDate);
+    };
+
     // grouping data berdasarkan tanggal data dibuat
     const groupData = _.groupBy(dataAsli, "createdAt");
     console.log(groupData);
+
+    const showDatepicker = () => {
+        DateTimePickerAndroid.open({
+            value: date,
+            onChange,
+            mode: "date",
+            is24Hour: true,
+        });
+    };
 
     // Mengembalikan menjadi view / tampilan
     return (
@@ -80,8 +100,10 @@ const Home: React.FC<props> = ({ navigation }) => {
                     <Text style={styles.textUser}>Ferri adi FO</Text>
                 </View>
             </View>
+
             <View style={styles.topBar}>
                 <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
                     simbol={<Entypo name="home" size={24} color="black" />}
                     aksi={() => navigation.navigate("Home")}
                     style={styles.button}>
@@ -89,12 +111,14 @@ const Home: React.FC<props> = ({ navigation }) => {
                 </Button>
 
                 <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
                     simbol={<Entypo name="pencil" size={24} color="black" />}
                     aksi={() => navigation.navigate("Input")}
                     style={styles.button}>
                     INPUT
                 </Button>
                 <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
                     simbol={
                         <FontAwesome5 name="book" size={24} color="black" />
                     }
@@ -104,6 +128,7 @@ const Home: React.FC<props> = ({ navigation }) => {
                 </Button>
 
                 <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
                     simbol={
                         <FontAwesome6
                             name="ranking-star"
@@ -117,6 +142,7 @@ const Home: React.FC<props> = ({ navigation }) => {
                 </Button>
 
                 <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
                     simbol={
                         <MaterialCommunityIcons
                             name="account-settings"
@@ -131,13 +157,30 @@ const Home: React.FC<props> = ({ navigation }) => {
             </View>
 
             <View style={styles.headInfo}>
-                <Text style={{ fontSize : 26, fontWeight : "700" }}>Halaman Home</Text>
-                <Text style={{ borderBottomWidth : 2, height: 0, width : "70%" }}></Text>
+                <Text style={{ fontSize: 26, fontWeight: "700" }}>
+                    Halaman Home
+                </Text>
+                <Text
+                    style={{
+                        borderBottomWidth: 2,
+                        height: 0,
+                        width: "70%",
+                    }}></Text>
                 <Text>Filter data Berdasarkan tanggal</Text>
             </View>
 
-            
+            <Button
+                style={styles.buttonDate}
+                aksi={showDatepicker}
+                simbol={<Fontisto name="date" size={24} color="black" />}>
+                {dateNow}
+            </Button>
 
+            <View>
+                <TouchableOpacity>
+                    <Text>Cetak</Text>
+                </TouchableOpacity>
+            </View>
             {/* Table content */}
 
             {Object.keys(groupData).map((key, index) => (
@@ -224,13 +267,26 @@ const Home: React.FC<props> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    buttonDate: {
+        borderWidth: 1,
+        width: 130,
+        flexDirection: "row",
+        gap: 5,
+        marginBottom: 40,
+        marginTop: 20,
+        marginLeft: 10,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 10,
+        backgroundColor: "#CFFFE2",
+    },
     headInfo: {
         borderRadius: 15,
         padding: 5,
         paddingHorizontal: 10,
-        paddingBottom : 19,
+        paddingBottom: 19,
         backgroundColor: "#3bb9f7",
-        gap : 8
+        gap: 8,
     },
     textNav: {
         fontSize: 25,
