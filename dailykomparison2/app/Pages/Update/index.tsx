@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import Button from "@/app/Components/Moleculs/Button";
 import { Picker } from "@react-native-picker/picker";
+import Layouts from "@/app/Components/Layouts/Layouts";
 
 interface props {
     navigation: NavigationProp<any, any>;
@@ -71,7 +72,7 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     // Handle deleteButton
     const handleDelette = async () => {
         try {
-            await fetch(`http://192.168.3.220:8000/data/${index}`, {
+            await fetch(`http://192.168.106.220:8000/data/${index}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -87,7 +88,7 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     const sendUpdate = async () => {
         try {
             const response = await fetch(
-                `http://192.168.3.220:8000/data/${index}`,
+                `http://192.168.106.220:8000/data/${index}`,
                 {
                     method: "PATCH",
                     headers: {
@@ -160,26 +161,25 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="#3bb9f7" barStyle="light-content" />
-            <View style={styles.navbar}>
-                <Text style={styles.textNav}>Update</Text>
-            </View>
-            <View style={styles.topBar}>
-                <Button
-                    aksi={() => navigation.navigate("Home")}
-                    style={styles.button}>
-                    HOME
-                </Button>
+            <Layouts
+                navigateHome={() => navigation.navigate("Home")}
+                navigateInput={() => navigation.navigate("Input")}
+                navigateNote={() => navigation.navigate("Rank")}
+                navigateRanking={() => navigation.navigate("Rank")}
+                navigateSetAkun={() => navigation.navigate("Rank")}
+            />
 
-                <Button
-                    aksi={() => navigation.navigate("Input")}
-                    style={styles.button}>
-                    INPUT
-                </Button>
-                <Button
-                    aksi={() => navigation.navigate("Rank")}
-                    style={styles.button}>
-                    RANKING
-                </Button>
+            <View style={styles.headInfo}>
+                <Text style={{ fontSize: 26, fontWeight: "700" }}>
+                    Halaman Ubah data
+                </Text>
+                <Text
+                    style={{
+                        borderBottomWidth: 2,
+                        height: 0,
+                        width: "70%",
+                    }}></Text>
+                <Text>Ubah data yang ingin dirubah</Text>
             </View>
 
             {/* Form Update */}
@@ -281,8 +281,9 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
                     style={[
                         styles.button,
                         { marginHorizontal: "auto", width: 190, marginTop: 10 },
-                    ]}
-                >Kirim</Button>
+                    ]}>
+                    Kirim
+                </Button>
 
                 <Button
                     aksi={handleDelette}
@@ -304,6 +305,15 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
 
 // pemberian style/gaya supaya lebih menarik dan hidup
 const styles = StyleSheet.create({
+    headInfo: {
+        borderRadius: 15,
+        padding: 5,
+        paddingHorizontal: 10,
+        paddingBottom: 19,
+        backgroundColor: "#3bb9f7",
+        gap: 8,
+        marginBottom: 10,
+    },
     textNav: {
         fontSize: 25,
         fontWeight: "bold",
