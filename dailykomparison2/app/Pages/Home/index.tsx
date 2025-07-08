@@ -66,6 +66,8 @@ const Home: React.FC<props> = ({ navigation }) => {
         return { ...item, createdAt: tanggalBaru };
     });
 
+
+    
     const onChange = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);

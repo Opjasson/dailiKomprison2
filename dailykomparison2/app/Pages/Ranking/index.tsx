@@ -3,6 +3,9 @@ import Button from "@/app/Components/Moleculs/Button";
 import { NavigationProp } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, StatusBar } from "react-native";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import Fontisto from "@expo/vector-icons/Fontisto";
+
 
 interface props {
     navigation: NavigationProp<any, any>;
@@ -14,6 +17,14 @@ const Ranking: React.FC<props> = ({ navigation }) => {
     >([]);
 
     const [date, setDate] = useState(new Date());
+
+    // convert tanggal menjadi string
+    const dateNow = date.toISOString().split("T")[0];
+
+    const onChange = (event: any, selectedDate: any) => {
+        const currentDate = selectedDate || date;
+        setDate(currentDate);
+    };
 
     async function getData() {
         const response = await fetch("http://192.168.106.220:8000/data");
@@ -36,6 +47,15 @@ const Ranking: React.FC<props> = ({ navigation }) => {
     useEffect(() => {
         getData();
     }, []);
+
+    const showDatepicker = () => {
+            DateTimePickerAndroid.open({
+                value: date,
+                onChange,
+                mode: "date",
+                is24Hour: true,
+            });
+        };
 
     return (
         <View style={styles.container}>
@@ -61,20 +81,35 @@ const Ranking: React.FC<props> = ({ navigation }) => {
                 <Text>Menampilkan ranking hotel per hari</Text>
             </View>
 
+            <Button
+                style={styles.buttonDate}
+                aksi={showDatepicker}
+                simbol={<Fontisto name="date" size={24} color="black" />}>
+                {dateNow}
+            </Button>
+
             <View style={styles.containerRank}>
                 <View style={styles.headRank}>
                     <Text style={styles.textHead}>Ranking Hari Ini</Text>
-                    <Text style={styles.textHead}>{formatTanggal}</Text>
+                    <Text style={styles.textHead}>
+                        {date.toISOString().split("T")[0]}
+                    </Text>
                 </View>
                 <View style={styles.mainRank}>
                     <Text style={styles.textRank}>No</Text>
                     <Text style={styles.textRank}>Hotel</Text>
                     <Text style={styles.textRank}>RR</Text>
                 </View>
-                {dataAsli.filter((item) => item.createdAt === formatTanggal)
-                    .length > 0 ? (
+                {dataAsli.filter(
+                    (item) =>
+                        item.createdAt === date.toISOString().split("T")[0]
+                ).length > 0 ? (
                     dataAsli
-                        .filter((item) => item.createdAt === formatTanggal)
+                        .filter(
+                            (item) =>
+                                item.createdAt ===
+                                date.toISOString().split("T")[0]
+                        )
                         .map((item, index) => (
                             <View key={index} style={styles.mainRank}>
                                 <Text style={styles.textRank}>{index + 1}</Text>
@@ -82,7 +117,7 @@ const Ranking: React.FC<props> = ({ navigation }) => {
                                     {item.hotel}
                                 </Text>
                                 <Text style={styles.textRank}>
-                                    {item.RR.toLocaleString("id-ID")}
+                                    {item.RNO * 2}
                                 </Text>
                             </View>
                         ))
@@ -97,6 +132,18 @@ const Ranking: React.FC<props> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+    buttonDate: {
+        borderWidth: 1,
+        width: 130,
+        flexDirection: "row",
+        gap: 5,
+        marginBottom: 20,
+        marginLeft: 10,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 10,
+        backgroundColor: "#CFFFE2",
+    },
     headInfo: {
         borderRadius: 15,
         padding: 5,
@@ -104,7 +151,7 @@ const styles = StyleSheet.create({
         paddingBottom: 19,
         backgroundColor: "#3bb9f7",
         gap: 8,
-        marginBottom: 60,
+        marginBottom: 40,
     },
     textNav: {
         fontSize: 25,
