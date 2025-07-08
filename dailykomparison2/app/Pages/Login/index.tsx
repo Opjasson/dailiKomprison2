@@ -2,7 +2,7 @@ import Input from "@/app/Components/Moleculs/Input";
 import Label from "@/app/Components/Moleculs/Label";
 import { BackgroundSP } from "@/app/Inventory/image";
 import { NavigationProp } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Image,
     ScrollView,
@@ -21,6 +21,20 @@ const Login: React.FC<props> = ({ navigation }) => {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [error, setError] = useState<string>();
+    const [data, setData] = useState([]);
+
+    const getUserId = async () => {
+        const response = await fetch("http://192.168.106.220:8000/login");
+        const datas = await response.json();
+        setData(datas);
+    };
+
+    useEffect(() => {
+        getUserId()
+        if (data.length > 0) {
+            navigation.navigate("Home")
+        }
+    });
 
     const handleLogin = async () => {
         if (email && password) {
@@ -36,7 +50,6 @@ const Login: React.FC<props> = ({ navigation }) => {
             });
 
             const akun = await response.json();
-            
 
             if (JSON.stringify(response.status) === "401") {
                 setError("Akun tidak terdaftar!");

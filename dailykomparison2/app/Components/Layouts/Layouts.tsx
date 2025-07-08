@@ -14,7 +14,7 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface props {
     navigation?: NavigationProp<any, any>;
@@ -38,8 +38,17 @@ const Layouts: React.FC<props> = ({
     const getUserId = async () => {
         const response = await fetch("http://192.168.106.220:8000/login");
         const data = await response.json();
-        setId(data);
+        console.log(data);
+        
+        setId(data.id);
+        // console.log(id);
     }
+    
+
+    useEffect(() => {
+        getUserId()
+    },[])
+
     return (
         <View>
             <View style={styles.navbar}>
