@@ -6,6 +6,7 @@ import {
     StatusBar,
     TouchableOpacity,
     Alert,
+    ScrollView,
 } from "react-native";
 import Layouts from "@/app/Components/Layouts/Layouts";
 import Button from "@/app/Components/Moleculs/Button";
@@ -16,6 +17,41 @@ interface props {
 }
 
 const Jadwal: React.FC<props> = ({ navigation }) => {
+    const [jadwals, setJadwal] = useState<
+        {
+            id : number;
+            date: string;
+            staf: string;
+            title: string;
+            deskripsi: string;
+        }[]
+    >([]);
+
+    const getJadwals = async () => {
+        const response = await fetch("http://192.168.106.220:8000/jadwal");
+        const data = await response.json();
+        setJadwal(data);
+    };
+
+    const handleDeleteCard = async (id : number) => {
+        const response = await fetch(`http://192.168.106.220:8000/jadwal/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (response.status === 200) {
+            Alert.alert("Jadwal berhasl dihapus!");
+            navigation.navigate("Home");
+        }
+    };
+
+    useEffect(() => {
+        getJadwals();
+    }, []);
+
+    console.log(jadwals);
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="#3bb9f7" barStyle="light-content" />
@@ -27,49 +63,77 @@ const Jadwal: React.FC<props> = ({ navigation }) => {
                 navigateSetAkun={() => navigation.navigate("SetAkun")}
             />
 
-            <View style={styles.headInfo}>
-                <Text style={{ fontSize: 26, fontWeight: "700" }}>
-                    Halaman jadwal
-                </Text>
-                <Text
-                    style={{
-                        borderBottomWidth: 2,
-                        height: 0,
-                        width: "70%",
-                    }}></Text>
-                <Text>Mengelola jadwal acara dan meeting</Text>
-            </View>
+            <ScrollView>
+                <View style={styles.headInfo}>
+                    <Text style={{ fontSize: 26, fontWeight: "700" }}>
+                        Halaman jadwal
+                    </Text>
+                    <Text
+                        style={{
+                            borderBottomWidth: 2,
+                            height: 0,
+                            width: "70%",
+                        }}></Text>
+                    <Text>Mengelola jadwal acara dan meeting</Text>
+                </View>
 
-            <Button
-                aksi={() => navigation.navigate("TambahJadwal")}
-                style={styles.button}>
-                Tambah jadwal
-            </Button>
+                <Button
+                    aksi={() => navigation.navigate("TambahJadwal")}
+                    style={styles.button}>
+                    Tambah jadwal
+                </Button>
 
-            <View style={{ backgroundColor: "#E5E0D8", padding : 20, borderRadius : 20, width : "88%", marginHorizontal: "auto", gap : 10 }}>
-                <Text style={{ fontSize : 15, textDecorationLine : "underline" }}>12-3-2025</Text>
-                <Text style={{ borderBottomWidth : 3 }}>Staf : Ferri adi</Text>
-                <Text style={{ fontSize : 18, fontWeight : "700" }}>Merancang strategi pekembangan hotel</Text>
-                <Text>
-                    Front office : memaksimalkan kinerja dan sopan santun f&b
-                    division : catatan stok bahan baku masih kurang lengkap
-                </Text>
+                {jadwals.map((item, index) => (
+                    <View
+                        key={index}
+                        style={{
+                            backgroundColor: "#E5E0D8",
+                            padding: 20,
+                            borderRadius: 20,
+                            width: "88%",
+                            marginHorizontal: "auto",
+                            gap: 10,
+                            marginBottom: 10,
+                        }}>
+                        <Text
+                            style={{
+                                fontSize: 15,
+                                textDecorationLine: "underline",
+                            }}>
+                            {item.date}
+                        </Text>
+                        <Text style={{ borderBottomWidth: 3 }}>
+                            Staf : {item.staf}
+                        </Text>
+                        <Text style={{ fontSize: 18, fontWeight: "700" }}>
+                            {item.title}
+                        </Text>
+                        <Text>
+                            {item.deskripsi}
+                        </Text>
 
-                <Button aksi={() => alert("hallo")} style={styles.deleteCard} styleTitle={styles.deleteText}>Delete</Button>
-            </View>
+                        <Button
+                            aksi={() => handleDeleteCard(item.id)}
+                            style={styles.deleteCard}
+                            styleTitle={styles.deleteText}>
+                            Delete
+                        </Button>
+                    </View>
+                ))}
+            </ScrollView>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    deleteText : {
-        textAlign : "center",
-        color : "white"
+    deleteText: {
+        textAlign: "center",
+        color: "white",
     },
-    deleteCard : {
-        backgroundColor : "red",
-        width : 80,
-        borderRadius : 10
+    deleteCard: {
+        backgroundColor: "red",
+        width: 80,
+        borderRadius: 10,
     },
     headInfo: {
         borderRadius: 15,
