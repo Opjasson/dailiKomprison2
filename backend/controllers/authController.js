@@ -38,7 +38,7 @@ export const login = async (req, res) => {
 
 export async function getLogin(req, res) {
     try {
-        const response = await dataModel.findAll();
+        const response = await Login.findAll();
 
         res.status(200).json(response);
     } catch (error) {
@@ -48,14 +48,14 @@ export async function getLogin(req, res) {
 
 // Delete data
 export async function deleteLogin(req, res) {
-    const data = await dataModel.findOne({
+    const data = await Login.findOne({
         where: {
             id: req.params.id,
         },
     });
     if (!data) return res.status(404).json({ msg: "Data tidak ditemukan!" });
     try {
-        await dataModel.destroy({
+        await Login.destroy({
             where: {
                 id: req.params.id,
             },
