@@ -14,6 +14,14 @@ const Users = db.define(
                 isEmail: true,
             },
         },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                isEmail: true,
+            },
+        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
