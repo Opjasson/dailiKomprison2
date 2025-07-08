@@ -29,6 +29,7 @@ const UbahAkun: React.FC<props> = ({ navigation, route }) => {
     const sendData = route.params?.data;
 
     const [email, setEmail] = useState<string>(sendData.email);
+    const [username, setUsername] = useState<string>(sendData.username);
     const [password, setPassword] = useState<string>();
     const [confPassword, setConfPassword] = useState<string>();
     const [error, setError] = useState<string>();
@@ -44,6 +45,7 @@ const UbahAkun: React.FC<props> = ({ navigation, route }) => {
                     },
                     body: JSON.stringify({
                         email: email,
+                        username : username,
                         password: password,
                         confPassword: confPassword,
                     }),
@@ -98,6 +100,14 @@ const UbahAkun: React.FC<props> = ({ navigation, route }) => {
                         onChangeText={(text) => setEmail(text)}
                         placeholder="Masukan email anda"
                         value={`${email}`}
+                    />
+
+                    <Label title="Username" />
+                    <Input
+                        keyboardType="default"
+                        onChangeText={(text) => setUsername(text)}
+                        placeholder="Masukan username anda"
+                        value={`${username}`}
                     />
 
                     <Label title="Password" />

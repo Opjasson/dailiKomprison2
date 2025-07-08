@@ -26,6 +26,7 @@ interface props {
 const TambahAkun: React.FC<props> = ({ navigation, route }) => {
 
     const [email, setEmail] = useState<string>();
+    const [username, setUsername] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confPassword, setConfPassword] = useState<string>();
     const [error, setError] = useState<string>();
@@ -39,6 +40,7 @@ const TambahAkun: React.FC<props> = ({ navigation, route }) => {
                 },
                 body: JSON.stringify({
                     email: email,
+                    username : username,
                     password: password,
                     confPassword: confPassword,
                 }),
@@ -91,6 +93,13 @@ const TambahAkun: React.FC<props> = ({ navigation, route }) => {
                         keyboardType="email-address"
                         onChangeText={(text) => setEmail(text)}
                         placeholder="Masukan email anda"
+                    />
+
+                    <Label title="Username" />
+                    <Input
+                        keyboardType="default"
+                        onChangeText={(text) => setUsername(text)}
+                        placeholder="Masukan username anda"
                     />
 
                     <Label title="Password" />
