@@ -47,15 +47,14 @@ export async function addData(req, res) {
 
 // Delete data
 export async function deleteData(req, res) {
-    const data = await dataModel.findOne({
-        attributes: ["id", "hotel", "RNO", "ARR", "RNA"],
+    const data = await Jadwal.findOne({
         where: {
             id: req.params.id,
         },
     });
     if (!data) return res.status(404).json({ msg: "Data tidak ditemukan!" });
     try {
-        await dataModel.destroy({
+        await Jadwal.destroy({
             where: {
                 id: req.params.id,
             },
