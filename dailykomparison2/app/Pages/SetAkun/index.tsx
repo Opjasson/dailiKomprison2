@@ -23,6 +23,24 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
         }[]
     >([]);
 
+    const [id, setId] = useState<number>();
+
+    const getUserId = async () => {
+        const response = await fetch("http://192.168.106.220:8000/login");
+        const data = await response.json();
+        setId(Object.values(data)[0]?.userId);
+    };
+
+    useEffect(() => {
+        getUserId();
+    }, []);
+
+    useEffect(() => {
+        if (id !== 2) {
+            navigation.navigate("Home");
+        }
+    });
+
     // Get data lewat api
     const fetchData = async () => {
         const response = await fetch("http://192.168.106.220:8000/user");
@@ -40,7 +58,7 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
         });
         if (response) {
             Alert.alert("Data berhasl dihapus!");
-            navigation.navigate("Home")
+            navigation.navigate("Home");
         }
     };
 
@@ -113,10 +131,13 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
                             width: "40%",
                             gap: 8,
                         }}>
-                        <TouchableOpacity onPress={() => navigation.navigate("UbahAkun", {
-                            id : item.id,
-                            data : item
-                        })}>
+                        <TouchableOpacity
+                            onPress={() =>
+                                navigation.navigate("UbahAkun", {
+                                    id: item.id,
+                                    data: item,
+                                })
+                            }>
                             <Text style={{ fontSize: 18, color: "blue" }}>
                                 Ubah
                             </Text>
