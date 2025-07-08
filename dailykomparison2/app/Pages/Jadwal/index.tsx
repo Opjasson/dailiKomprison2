@@ -41,7 +41,7 @@ const Jadwal: React.FC<props> = ({ navigation }) => {
             </View>
 
             <Button
-                aksi={() => navigation.navigate("TambahAkun")}
+                aksi={() => navigation.navigate("TambahJadwal")}
                 style={styles.button}>
                 Tambah jadwal
             </Button>

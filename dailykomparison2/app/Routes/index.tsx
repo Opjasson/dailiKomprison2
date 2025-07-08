@@ -13,6 +13,7 @@ import {
     UbahAkun,
     TambahAkun,
     Jadwal,
+    TambahJadwal,
 } from "../Pages";
 
 const Stack = createStackNavigator();
@@ -31,6 +32,14 @@ const Route = () => {
             <Stack.Screen name="SetAkun" component={SetAkun} />
             <Stack.Screen name="UbahAkun" component={UbahAkun} />
             <Stack.Screen name="TambahAkun" component={TambahAkun} />
+            <Stack.Screen
+                options={{
+                    headerShown: true,
+                    headerTitle: "Tambah jadwal",
+                }}
+                name="TambahJadwal"
+                component={TambahJadwal}
+            />
         </Stack.Navigator>
     );
 };

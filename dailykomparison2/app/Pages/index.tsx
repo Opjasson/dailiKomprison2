@@ -9,6 +9,7 @@ import Jadwal from "./Jadwal";
 import SetAkun from "./SetAkun";
 import UbahAkun from "./UbahAkun";
 import TambahAkun from "./TambahAkun";
+import TambahJadwal from "./TambahJadwal"
 
 export {
     Home,
@@ -21,5 +22,6 @@ export {
     Jadwal,
     SetAkun,
     UbahAkun,
-    TambahAkun
+    TambahAkun,
+    TambahJadwal
 };
