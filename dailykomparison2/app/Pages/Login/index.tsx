@@ -83,12 +83,6 @@ const Login: React.FC<props> = ({ navigation }) => {
                         Login
                     </Text>
                 </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.buatAkun}
-                    onPress={() => navigation.navigate("Register")}>
-                    <Text>Buat akunmu disini! Buat akun</Text>
-                </TouchableOpacity>
             </View>
             {/* End Form */}
         </ScrollView>
@@ -117,6 +111,7 @@ const styles = StyleSheet.create({
         left: 30,
         paddingHorizontal: 10,
         paddingTop: 30,
+        paddingBottom: 50,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         borderBottomEndRadius: 20,
