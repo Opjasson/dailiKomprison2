@@ -34,10 +34,8 @@ const Login: React.FC<props> = ({ navigation }) => {
     },[]);
 
     useEffect(() => {
-        if (data) {
+        if (data.length > 0) {
             navigation.navigate("Home");
-        } else {
-            navigation.navigate("Login");
         }
     },[])
 

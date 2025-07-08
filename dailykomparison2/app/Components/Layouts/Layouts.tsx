@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     StatusBar,
 } from "react-native";
-import { NavigationProp, RouteProp } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Button from "@/app/Components/Moleculs/Button";
 import _ from "lodash";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -26,7 +26,6 @@ interface props {
 }
 
 const Layouts: React.FC<props> = ({
-    navigation,
     navigateHome,
     navigateInput,
     navigateNote,
@@ -34,11 +33,15 @@ const Layouts: React.FC<props> = ({
     navigateSetAkun,
 }) => {
     const [id, setId] = useState<number>()
+    const [idLogin, setIdLogin] = useState<number>()
     const [user, setUser] = useState<string>()
+
+    const navigation = useNavigation();
 
     const getUserId = async () => {
         const response = await fetch("http://192.168.106.220:8000/login");
         const data = await response.json();
+        setIdLogin(Object.values(data)[0]?.id);
         setId(Object.values(data)[0]?.userId);
     }
     
@@ -50,6 +53,16 @@ const Layouts: React.FC<props> = ({
         const response = await fetch(`http://192.168.106.220:8000/user/${id}`);
         const user = await response.json();        
         setUser(user.username)
+    }
+
+    const logOut = async () => {
+        await fetch(`http://192.168.106.220:8000/login/${idLogin}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        navigation.navigate("Login" as never);
     }
 
     getAkunLoggin()
@@ -66,6 +79,8 @@ const Layouts: React.FC<props> = ({
                     <Text style={styles.textNav}>Hello</Text>
                     <Text style={styles.textUser}>{user}</Text>
                 </View>
+
+                <Button aksi={logOut} style={styles.buttonLogout}>Logout</Button>
             </View>
 
             <View style={styles.topBar}>
@@ -127,6 +142,16 @@ const Layouts: React.FC<props> = ({
 };
 
 const styles = StyleSheet.create({
+    buttonLogout: {
+        backgroundColor: "red",
+        padding: 8,
+        alignItems: "center",
+        borderRadius: 9,
+        flexDirection: "row",
+        gap: 5,
+        marginBottom: 20,
+        marginLeft : 200,
+    },
     buttonDate: {
         borderWidth: 1,
         width: 130,
