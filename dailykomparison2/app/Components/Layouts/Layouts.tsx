@@ -34,21 +34,25 @@ const Layouts: React.FC<props> = ({
     navigateSetAkun,
 }) => {
     const [id, setId] = useState<number>()
+    const [user, setUser] = useState<string>()
 
     const getUserId = async () => {
         const response = await fetch("http://192.168.106.220:8000/login");
         const data = await response.json();
-        console.log(data);
-        
-        setId(data.id);
-        // console.log(id);
+        setId(Object.values(data)[0]?.userId);
     }
     
-
     useEffect(() => {
         getUserId()
     },[])
 
+    const getAkunLoggin = async () => {
+        const response = await fetch(`http://192.168.106.220:8000/user/${id}`);
+        const user = await response.json();        
+        setUser(user.username)
+    }
+
+    getAkunLoggin()
     return (
         <View>
             <View style={styles.navbar}>
@@ -60,7 +64,7 @@ const Layouts: React.FC<props> = ({
                 />
                 <View>
                     <Text style={styles.textNav}>Hello</Text>
-                    <Text style={styles.textUser}>Ferri adi FO</Text>
+                    <Text style={styles.textUser}>{user}</Text>
                 </View>
             </View>
 
