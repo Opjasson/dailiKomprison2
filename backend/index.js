@@ -17,7 +17,7 @@ const app = express();
 
 // Migrate DB otomatis
 // (async () => {
-//     await Jadwal.sync();
+//     await user.sync();
 // })();
 
 

@@ -4,7 +4,7 @@ import argon2 from "argon2";
 export const getUsers = async (req, res) => {
     try {
         const response = await Users.findAll({
-            attributes: ["id", "email"],
+            attributes: ["id", "email", "username"],
         });
         res.status(200).json(response);
     } catch (error) {
@@ -26,7 +26,7 @@ export const getUserById = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-    const { email, password, confPassword } = req.body;
+    const { email,username, password, confPassword } = req.body;
 
     if (password !== confPassword) {
         return res
@@ -38,7 +38,7 @@ export const createUser = async (req, res) => {
     try {
         await Users.create({
             email,
-
+            username,
             password: HashPassword,
         });
         res.status(201).json({ msg: "Register berhasil" });
@@ -48,7 +48,7 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUsersById = async (req, res) => {
-    const { email, password, confPassword } = req.body;
+    const { email, username, password, confPassword } = req.body;
 
     const getUserById = await Users.findOne({
         where: {
@@ -67,7 +67,7 @@ export const updateUsersById = async (req, res) => {
         await Users.update(
             {
                 email,
-
+                username,
                 password: HashPassword,
             },
             {
