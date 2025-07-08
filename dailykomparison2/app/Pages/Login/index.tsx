@@ -35,10 +35,15 @@ const Login: React.FC<props> = ({ navigation }) => {
                 }),
             });
 
+            const akun = await response.json();
+            
+
             if (JSON.stringify(response.status) === "401") {
                 setError("Akun tidak terdaftar!");
             } else {
-                navigation.navigate("Home");
+                navigation.navigate("Home", {
+                    username: akun.response.username,
+                });
             }
         } else {
             setError("Lengkapi formulir yang ada!");

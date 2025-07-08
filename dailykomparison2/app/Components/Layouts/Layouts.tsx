@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     StatusBar,
 } from "react-native";
-import { NavigationProp } from "@react-navigation/native";
+import { NavigationProp, RouteProp } from "@react-navigation/native";
 import Button from "@/app/Components/Moleculs/Button";
 import _ from "lodash";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -18,86 +18,98 @@ import React from "react";
 
 interface props {
     navigation?: NavigationProp<any, any>;
-    navigateHome : () => void;
-    navigateInput : () => void;
-    navigateNote : () => void;
-    navigateRanking : () => void;
-    navigateSetAkun : () => void;
+    navigateHome: () => void;
+    navigateInput: () => void;
+    navigateNote: () => void;
+    navigateRanking: () => void;
+    navigateSetAkun: () => void;
+    route: RouteProp<any, any>;
 }
 
-const Layouts : React.FC <props> = ({navigation, navigateHome, navigateInput, navigateNote, navigateRanking, navigateSetAkun}) => {
-  return (
-      <View>
-          <View style={styles.navbar}>
-              <FontAwesome
-                  name="user"
-                  size={50}
-                  color="black"
-                  style={{ textAlign: "center", paddingTop: 8 }}
-              />
-              <View>
-                  <Text style={styles.textNav}>Hello</Text>
-                  <Text style={styles.textUser}>Ferri adi FO</Text>
-              </View>
-          </View>
+const Layouts: React.FC<props> = ({
+    route,
+    navigation,
+    navigateHome,
+    navigateInput,
+    navigateNote,
+    navigateRanking,
+    navigateSetAkun,
+}) => {
 
-          <View style={styles.topBar}>
-              <Button
-                  styleTitle={{ color: "white", fontWeight: 800 }}
-                  simbol={<Entypo name="home" size={24} color="black" />}
-                  aksi={navigateHome}
-                  style={styles.button}>
-                  HOME
-              </Button>
+    const username = route.params?.username;
+    
+    return (
+        <View>
+            <View style={styles.navbar}>
+                <FontAwesome
+                    name="user"
+                    size={50}
+                    color="black"
+                    style={{ textAlign: "center", paddingTop: 8 }}
+                />
+                <View>
+                    <Text style={styles.textNav}>Hello</Text>
+                    <Text style={styles.textUser}>Ferri adi FO</Text>
+                </View>
+            </View>
 
-              <Button
-                  styleTitle={{ color: "white", fontWeight: 800 }}
-                  simbol={<Entypo name="pencil" size={24} color="black" />}
-                  aksi={navigateInput}
-                  style={styles.button}>
-                  INPUT
-              </Button>
-              <Button
-                  styleTitle={{ color: "white", fontWeight: 800 }}
-                  simbol={<FontAwesome5 name="book" size={24} color="black" />}
-                  aksi={navigateNote}
-                  style={styles.button}>
-                  Note
-              </Button>
+            <View style={styles.topBar}>
+                <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
+                    simbol={<Entypo name="home" size={24} color="black" />}
+                    aksi={navigateHome}
+                    style={styles.button}>
+                    HOME
+                </Button>
 
-              <Button
-                  styleTitle={{ color: "white", fontWeight: 800 }}
-                  simbol={
-                      <FontAwesome6
-                          name="ranking-star"
-                          size={24}
-                          color="black"
-                      />
-                  }
-                  aksi={navigateRanking}
-                  style={styles.button}>
-                  RANKING
-              </Button>
+                <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
+                    simbol={<Entypo name="pencil" size={24} color="black" />}
+                    aksi={navigateInput}
+                    style={styles.button}>
+                    INPUT
+                </Button>
+                <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
+                    simbol={
+                        <FontAwesome5 name="book" size={24} color="black" />
+                    }
+                    aksi={navigateNote}
+                    style={styles.button}>
+                    Note
+                </Button>
 
-              <Button
-                  styleTitle={{ color: "white", fontWeight: 800 }}
-                  simbol={
-                      <MaterialCommunityIcons
-                          name="account-settings"
-                          size={28}
-                          color="black"
-                      />
-                  }
-                  aksi={navigateSetAkun}
-                  style={styles.button}>
-                  Set Akun
-              </Button>
-          </View>
+                <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
+                    simbol={
+                        <FontAwesome6
+                            name="ranking-star"
+                            size={24}
+                            color="black"
+                        />
+                    }
+                    aksi={navigateRanking}
+                    style={styles.button}>
+                    RANKING
+                </Button>
 
-          
-      </View>
-  );
-}
+                <Button
+                    styleTitle={{ color: "white", fontWeight: 800 }}
+                    simbol={
+                        <MaterialCommunityIcons
+                            name="account-settings"
+                            size={28}
+                            color="black"
+                        />
+                    }
+                    aksi={navigateSetAkun}
+                    style={styles.button}>
+                    Set Akun
+                </Button>
+            </View>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     buttonDate: {
@@ -175,4 +187,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Layouts
+export default Layouts;
