@@ -35,12 +35,30 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     const [ARR, setARR] = useState<number>(sendData.ARR);
     const [RNA, setRNA] = useState<number>(sendData.RNA);
     const [RR, setRR] = useState<number>();
+    const [id, setId] = useState<number>();
+
     // End state
 
     interface RootStackParamList {
         Home: undefined;
     }
     // End Interface
+
+    const getUserId = async () => {
+        const response = await fetch("http://192.168.106.220:8000/login");
+        const data = await response.json();
+        setId(Object.values(data)[0]?.userId);
+    };
+
+    useEffect(() => {
+        getUserId();
+    }, []);
+
+    useEffect(() => {
+        if (id === 2) {
+            navigation.navigate("Home");
+        }
+    });
 
     // Handle alert sesudah berhasil update
     const pindahHal = useNavigation<NavigationProp<RootStackParamList>>();

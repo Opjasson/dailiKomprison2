@@ -1,7 +1,7 @@
 import Button from "@/app/Components/Moleculs/Button";
 import { Picker } from "@react-native-picker/picker";
 import { NavigationProp } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Alert,
     ScrollView,
@@ -23,6 +23,24 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
     const [title, setTitle] = useState<string>();
     const [deskripsi, setDeskripsi] = useState<string>();
     const [staf, setStaf] = useState<string>();
+
+    const [id, setId] = useState<number>();
+
+    const getUserId = async () => {
+        const response = await fetch("http://192.168.106.220:8000/login");
+        const data = await response.json();
+        setId(Object.values(data)[0]?.userId);
+    };
+
+    useEffect(() => {
+        getUserId();
+    }, []);
+
+    useEffect(() => {
+        if (id === 2) {
+            navigation.navigate("Home");
+        }
+    });
 
     const [tanggal, setTanggal] = useState(new Date());
 
@@ -57,7 +75,7 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
             }),
         });
         alert("Jadwal berhasil ditambahkan!");
-        navigation.navigate("Note")
+        navigation.navigate("Note");
     };
 
     return (

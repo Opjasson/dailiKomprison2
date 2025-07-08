@@ -6,7 +6,7 @@ import {
     RouteProp,
     useNavigation,
 } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Alert,
     ScrollView,
@@ -29,6 +29,24 @@ const InputData: React.FC<props> = ({ navigation }) => {
     const [ARR, setARR] = useState<number>();
     const [RNA, setRNA] = useState<number>();
     // End state
+
+    const [id, setId] = useState<number>();
+
+    const getUserId = async () => {
+        const response = await fetch("http://192.168.106.220:8000/login");
+        const data = await response.json();
+        setId(Object.values(data)[0]?.userId);
+    };
+
+    useEffect(() => {
+        getUserId();
+    },[]);
+
+    useEffect(() => {
+        if (id === 2) {
+            navigation.navigate("Home");
+        }
+    })
 
     interface RootStackParamList {
         Home: undefined;

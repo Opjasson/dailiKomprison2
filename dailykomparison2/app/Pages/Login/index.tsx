@@ -31,10 +31,15 @@ const Login: React.FC<props> = ({ navigation }) => {
 
     useEffect(() => {
         getUserId()
-        if (data.length > 0) {
-            navigation.navigate("Home")
+    },[]);
+
+    useEffect(() => {
+        if (data) {
+            navigation.navigate("Home");
+        } else {
+            navigation.navigate("Login");
         }
-    });
+    },[])
 
     const handleLogin = async () => {
         if (email && password) {
