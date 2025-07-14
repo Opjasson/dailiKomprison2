@@ -45,7 +45,7 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     // End Interface
 
     const getUserId = async () => {
-        const response = await fetch("http://192.168.18.77:8000/login");
+        const response = await fetch("http://192.168.220.220:8000/login");
         const data = await response.json();
         setId(Object.values(data)[0]?.userId);
     };
@@ -85,7 +85,7 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     // Handle deleteButton
     const handleDelette = async () => {
         try {
-            await fetch(`http://192.168.18.77:8000/data/${index}`, {
+            await fetch(`http://192.168.220.220:8000/data/${index}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     const sendUpdate = async () => {
         try {
             const response = await fetch(
-                `http://192.168.18.77:8000/data/${index}`,
+                `http://192.168.220.220:8000/data/${index}`,
                 {
                     method: "PATCH",
                     headers: {

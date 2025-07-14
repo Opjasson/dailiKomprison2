@@ -28,18 +28,21 @@ const Jadwal: React.FC<props> = ({ navigation }) => {
     >([]);
 
     const getJadwals = async () => {
-        const response = await fetch("http://192.168.18.77:8000/jadwal");
+        const response = await fetch("http://192.168.220.220:8000/jadwal");
         const data = await response.json();
         setJadwal(data);
     };
 
     const handleDeleteCard = async (id: number) => {
-        const response = await fetch(`http://192.168.18.77:8000/jadwal/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const response = await fetch(
+            `http://192.168.220.220:8000/jadwal/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
         if (response.status === 200) {
             Alert.alert("Jadwal berhasl dihapus!");
             navigation.navigate("Home");

@@ -14,6 +14,7 @@ import {
     TambahAkun,
     Jadwal,
     TambahJadwal,
+    ForgotPass,
 } from "../Pages";
 
 const Stack = createStackNavigator();
@@ -39,6 +40,14 @@ const Route = () => {
                 }}
                 name="TambahJadwal"
                 component={TambahJadwal}
+            />
+            <Stack.Screen
+                options={{
+                    headerShown: true,
+                    headerTitle: "Forgot Password",
+                }}
+                name="ForgotPassword"
+                component={ForgotPass}
             />
         </Stack.Navigator>
     );

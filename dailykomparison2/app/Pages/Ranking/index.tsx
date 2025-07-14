@@ -26,7 +26,7 @@ const Ranking: React.FC<props> = ({ navigation }) => {
     };
 
     async function getData() {
-        const response = await fetch("http://192.168.18.77:8000/data");
+        const response = await fetch("http://192.168.220.220:8000/data");
         const json = await response.json();
 
         // Mengurutkan data RR dari yang terbesar

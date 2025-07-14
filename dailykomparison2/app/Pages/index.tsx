@@ -10,6 +10,7 @@ import SetAkun from "./SetAkun";
 import UbahAkun from "./UbahAkun";
 import TambahAkun from "./TambahAkun";
 import TambahJadwal from "./TambahJadwal"
+import ForgotPass from "./ForgotPassword";
 
 export {
     Home,
@@ -23,5 +24,6 @@ export {
     SetAkun,
     UbahAkun,
     TambahAkun,
-    TambahJadwal
+    TambahJadwal,
+    ForgotPass
 };

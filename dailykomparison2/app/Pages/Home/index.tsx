@@ -47,7 +47,7 @@ const Home: React.FC<props> = ({ navigation }) => {
 
     // Get data lewat api
     const fetchData = async () => {
-        const response = await fetch("http://192.168.18.77:8000/data");
+        const response = await fetch("http://192.168.220.220:8000/data");
         const data = await response.json();
         setData(data);
     };
