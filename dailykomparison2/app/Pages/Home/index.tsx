@@ -47,7 +47,7 @@ const Home: React.FC<props> = ({ navigation }) => {
 
     // Get data lewat api
     const fetchData = async () => {
-        const response = await fetch("http://192.168.106.220:8000/data");
+        const response = await fetch("http://192.168.18.77:8000/data");
         const data = await response.json();
         setData(data);
     };
@@ -66,8 +66,6 @@ const Home: React.FC<props> = ({ navigation }) => {
         return { ...item, createdAt: tanggalBaru };
     });
 
-
-    
     const onChange = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
@@ -86,7 +84,6 @@ const Home: React.FC<props> = ({ navigation }) => {
     const getDoneData = getDataHotel.filter((array) => {
         return array.length > 0;
     });
-      
 
     const generateHTML = () => {
         const rows = Object.values(getDoneData)[0]
@@ -133,7 +130,6 @@ const Home: React.FC<props> = ({ navigation }) => {
           </html>
         `;
     };
-      
 
     const handleSavePdf = async () => {
         const htmlContent = generateHTML();
@@ -148,7 +144,7 @@ const Home: React.FC<props> = ({ navigation }) => {
             from: uri,
             to: newUri,
         });
-      
+
         await Sharing.shareAsync(newUri); // Menyimpan atau kirim PDF
     };
 

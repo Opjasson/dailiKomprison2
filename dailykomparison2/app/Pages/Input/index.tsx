@@ -33,20 +33,20 @@ const InputData: React.FC<props> = ({ navigation }) => {
     const [id, setId] = useState<number>();
 
     const getUserId = async () => {
-        const response = await fetch("http://192.168.106.220:8000/login");
+        const response = await fetch("http://192.168.18.77:8000/login");
         const data = await response.json();
         setId(Object.values(data)[0]?.userId);
     };
 
     useEffect(() => {
         getUserId();
-    },[]);
+    }, []);
 
     useEffect(() => {
         if (id === 2) {
             navigation.navigate("Home");
         }
-    })
+    });
 
     interface RootStackParamList {
         Home: undefined;
@@ -69,7 +69,7 @@ const InputData: React.FC<props> = ({ navigation }) => {
     // Handle updateButton
     const tambahData = async () => {
         try {
-            await fetch(`http://192.168.106.220:8000/data`, {
+            await fetch(`http://192.168.18.77:8000/data`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

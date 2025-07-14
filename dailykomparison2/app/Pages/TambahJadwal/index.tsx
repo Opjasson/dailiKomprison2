@@ -25,11 +25,23 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
     const [staf, setStaf] = useState<string>();
 
     const [id, setId] = useState<number>();
+    const [idLogin, setIdLogin] = useState<number>();
+    const [user, setUser] = useState<string>();
 
     const getUserId = async () => {
-        const response = await fetch("http://192.168.106.220:8000/login");
+        const response = await fetch("http://192.168.18.77:8000/login");
         const data = await response.json();
         setId(Object.values(data)[0]?.userId);
+    };
+
+    useEffect(() => {
+        getUserId();
+    }, []);
+
+    const getAkunLoggin = async () => {
+        const response = await fetch(`http://192.168.18.77:8000/user/${id}`);
+        const user = await response.json();
+        setUser(user.username);
     };
 
     useEffect(() => {
@@ -41,6 +53,8 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
             navigation.navigate("Home");
         }
     });
+
+    getAkunLoggin();
 
     const [tanggal, setTanggal] = useState(new Date());
 
@@ -62,14 +76,14 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
     };
 
     const tambahData = async () => {
-        await fetch(`http://192.168.106.220:8000/jadwal`, {
+        await fetch(`http://192.168.18.77:8000/jadwal`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 date: date,
-                staf: staf,
+                staf: user,
                 title: title,
                 deskripsi: deskripsi,
             }),
@@ -95,11 +109,22 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
                     marginBottom: 5,
                     borderRadius: 5,
                 }}>
-                <Picker onValueChange={(value, index) => setStaf(value)}>
+                {/* <Picker onValueChange={(value, index) => setStaf(value)}>
                     <Picker.Item value={"undefined"} label="Pilih Staf" />
                     <Picker.Item value={"Ferri adi"} label="Ferri adi" />
                     <Picker.Item value={"Catur"} label="Catur" />
-                </Picker>
+                </Picker> */}
+                <TextInput
+                    style={{
+                        borderWidth: 1,
+                        marginBottom: 5,
+                        borderRadius: 5,
+                    }}
+                    editable={false}
+                    value={user}
+                    // onChangeText={(text) => setTitle(text)}
+                    keyboardType="default"
+                />
             </View>
 
             <Text style={styles.textLabel}>Judul</Text>

@@ -32,40 +32,40 @@ const Layouts: React.FC<props> = ({
     navigateRanking,
     navigateSetAkun,
 }) => {
-    const [id, setId] = useState<number>()
-    const [idLogin, setIdLogin] = useState<number>()
-    const [user, setUser] = useState<string>()
+    const [id, setId] = useState<number>();
+    const [idLogin, setIdLogin] = useState<number>();
+    const [user, setUser] = useState<string>();
 
     const navigation = useNavigation();
 
     const getUserId = async () => {
-        const response = await fetch("http://192.168.106.220:8000/login");
+        const response = await fetch("http://192.168.18.77:8000/login");
         const data = await response.json();
         setIdLogin(Object.values(data)[0]?.id);
         setId(Object.values(data)[0]?.userId);
-    }
-    
+    };
+
     useEffect(() => {
-        getUserId()
-    },[])
+        getUserId();
+    }, []);
 
     const getAkunLoggin = async () => {
-        const response = await fetch(`http://192.168.106.220:8000/user/${id}`);
-        const user = await response.json();        
-        setUser(user.username)
-    }
+        const response = await fetch(`http://192.168.18.77:8000/user/${id}`);
+        const user = await response.json();
+        setUser(user.username);
+    };
 
     const logOut = async () => {
-        await fetch(`http://192.168.106.220:8000/login/${idLogin}`, {
+        await fetch(`http://192.168.18.77:8000/login/${idLogin}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
         });
         navigation.navigate("Login" as never);
-    }
+    };
 
-    getAkunLoggin()
+    getAkunLoggin();
     return (
         <View>
             <View style={styles.navbar}>
@@ -80,7 +80,9 @@ const Layouts: React.FC<props> = ({
                     <Text style={styles.textUser}>{user}</Text>
                 </View>
 
-                <Button aksi={logOut} style={styles.buttonLogout}>Logout</Button>
+                <Button aksi={logOut} style={styles.buttonLogout}>
+                    Logout
+                </Button>
             </View>
 
             <View style={styles.topBar}>
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 5,
         marginBottom: 20,
-        marginLeft : 200,
+        marginLeft: 200,
     },
     buttonDate: {
         borderWidth: 1,

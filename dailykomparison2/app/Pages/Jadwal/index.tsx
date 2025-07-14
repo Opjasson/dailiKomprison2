@@ -19,7 +19,7 @@ interface props {
 const Jadwal: React.FC<props> = ({ navigation }) => {
     const [jadwals, setJadwal] = useState<
         {
-            id : number;
+            id: number;
             date: string;
             staf: string;
             title: string;
@@ -28,13 +28,13 @@ const Jadwal: React.FC<props> = ({ navigation }) => {
     >([]);
 
     const getJadwals = async () => {
-        const response = await fetch("http://192.168.106.220:8000/jadwal");
+        const response = await fetch("http://192.168.18.77:8000/jadwal");
         const data = await response.json();
         setJadwal(data);
     };
 
-    const handleDeleteCard = async (id : number) => {
-        const response = await fetch(`http://192.168.106.220:8000/jadwal/${id}`, {
+    const handleDeleteCard = async (id: number) => {
+        const response = await fetch(`http://192.168.18.77:8000/jadwal/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -108,9 +108,7 @@ const Jadwal: React.FC<props> = ({ navigation }) => {
                         <Text style={{ fontSize: 18, fontWeight: "700" }}>
                             {item.title}
                         </Text>
-                        <Text>
-                            {item.deskripsi}
-                        </Text>
+                        <Text>{item.deskripsi}</Text>
 
                         <Button
                             aksi={() => handleDeleteCard(item.id)}

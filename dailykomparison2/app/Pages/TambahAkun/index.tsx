@@ -24,7 +24,6 @@ interface props {
 }
 
 const TambahAkun: React.FC<props> = ({ navigation, route }) => {
-
     const [email, setEmail] = useState<string>();
     const [username, setUsername] = useState<string>();
     const [password, setPassword] = useState<string>();
@@ -33,14 +32,14 @@ const TambahAkun: React.FC<props> = ({ navigation, route }) => {
 
     const handleRegister = async () => {
         if (email && password && confPassword) {
-            const response = await fetch("http://192.168.106.220:8000/user", {
+            const response = await fetch("http://192.168.18.77:8000/user", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email: email,
-                    username : username,
+                    username: username,
                     password: password,
                     confPassword: confPassword,
                 }),

@@ -26,7 +26,7 @@ const Register: React.FC<props> = ({ navigation }) => {
 
     const handleRegister = async () => {
         if (email && password && confPassword) {
-            const response = await fetch("http://192.168.106.220:8000/user", {
+            const response = await fetch("http://192.168.18.77:8000/user", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

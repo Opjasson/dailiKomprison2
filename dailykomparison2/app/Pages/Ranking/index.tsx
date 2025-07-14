@@ -6,7 +6,6 @@ import { Text, View, StyleSheet, StatusBar } from "react-native";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import Fontisto from "@expo/vector-icons/Fontisto";
 
-
 interface props {
     navigation: NavigationProp<any, any>;
 }
@@ -27,7 +26,7 @@ const Ranking: React.FC<props> = ({ navigation }) => {
     };
 
     async function getData() {
-        const response = await fetch("http://192.168.106.220:8000/data");
+        const response = await fetch("http://192.168.18.77:8000/data");
         const json = await response.json();
 
         // Mengurutkan data RR dari yang terbesar
@@ -49,13 +48,13 @@ const Ranking: React.FC<props> = ({ navigation }) => {
     }, []);
 
     const showDatepicker = () => {
-            DateTimePickerAndroid.open({
-                value: date,
-                onChange,
-                mode: "date",
-                is24Hour: true,
-            });
-        };
+        DateTimePickerAndroid.open({
+            value: date,
+            onChange,
+            mode: "date",
+            is24Hour: true,
+        });
+    };
 
     return (
         <View style={styles.container}>

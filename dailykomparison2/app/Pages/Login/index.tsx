@@ -24,24 +24,24 @@ const Login: React.FC<props> = ({ navigation }) => {
     const [data, setData] = useState([]);
 
     const getUserId = async () => {
-        const response = await fetch("http://192.168.106.220:8000/login");
+        const response = await fetch("http://192.168.18.77:8000/login");
         const datas = await response.json();
         setData(datas);
     };
 
     useEffect(() => {
-        getUserId()
-    },[]);
+        getUserId();
+    }, []);
 
     useEffect(() => {
         if (data.length > 0) {
             navigation.navigate("Home");
         }
-    },[])
+    }, []);
 
     const handleLogin = async () => {
         if (email && password) {
-            const response = await fetch("http://192.168.106.220:8000/login", {
+            const response = await fetch("http://192.168.18.77:8000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
