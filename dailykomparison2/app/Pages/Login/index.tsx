@@ -37,7 +37,7 @@ const Login: React.FC<props> = ({ navigation }) => {
         if (data.length > 0) {
             navigation.navigate("Home");
         }
-    }, []);
+    }, [data]);
 
     const handleLogin = async () => {
         if (email && password) {

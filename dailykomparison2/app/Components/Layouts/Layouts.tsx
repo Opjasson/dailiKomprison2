@@ -135,7 +135,7 @@ const Layouts: React.FC<props> = ({
                         />
                     }
                     aksi={navigateSetAkun}
-                    style={styles.button}>
+                    style={id === 2 ? styles.button : styles.buttonHide}>
                     Set Akun
                 </Button>
             </View>
@@ -144,6 +144,9 @@ const Layouts: React.FC<props> = ({
 };
 
 const styles = StyleSheet.create({
+    buttonHide : {
+        display : "none"
+    },
     buttonLogout: {
         backgroundColor: "red",
         padding: 8,

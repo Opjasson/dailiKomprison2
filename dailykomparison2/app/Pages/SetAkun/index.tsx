@@ -35,11 +35,11 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
         getUserId();
     }, []);
 
-    useEffect(() => {
-        if (id !== 2) {
-            navigation.navigate("Home");
-        }
-    });
+    // useEffect(() => {
+    //     if (id !== 2) {
+    //         navigation.navigate("Home");
+    //     }
+    // });
 
     // Get data lewat api
     const fetchData = async () => {
@@ -62,7 +62,7 @@ const SetAkun: React.FC<props> = ({ navigation }) => {
         }
     };
 
-    console.log(user);
+    // console.log(user);
     useEffect(() => {
         fetchData();
     }, []);
