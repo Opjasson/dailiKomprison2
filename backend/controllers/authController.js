@@ -65,3 +65,14 @@ export async function deleteLogin(req, res) {
         res.status(400).json({ msg: error.message });
     }
 }
+
+export const forgotPassword = async (req, res) => {
+    const { email, password, confPassword } = req.body;
+    const user = await Users.findOne({ where: { email } });
+    if (!user) {
+        return res.status(401).json({
+            message: "Email yang anda masukan salah",
+        });
+    }
+    res.status(200).json(user);
+};

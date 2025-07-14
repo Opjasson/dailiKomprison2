@@ -94,3 +94,5 @@ export const deleteAkun = async (req, res) => {
         res.status(400).json({ msg: error.message });
     }
 };
+
+
