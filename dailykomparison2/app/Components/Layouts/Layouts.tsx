@@ -39,7 +39,7 @@ const Layouts: React.FC<props> = ({
     const navigation = useNavigation();
 
     const getUserId = async () => {
-        const response = await fetch("http://192.168.220.220:8000/login");
+        const response = await fetch("change-ip-addressWLX/login");
         const data = await response.json();
         setIdLogin(Object.values(data)[0]?.id);
         setId(Object.values(data)[0]?.userId);
@@ -50,13 +50,13 @@ const Layouts: React.FC<props> = ({
     }, []);
 
     const getAkunLoggin = async () => {
-        const response = await fetch(`http://192.168.220.220:8000/user/${id}`);
+        const response = await fetch(`change-ip-addressWLX/user/${id}`);
         const user = await response.json();
         setUser(user.username);
     };
 
     const logOut = async () => {
-        await fetch(`http://192.168.220.220:8000/login/${idLogin}`, {
+        await fetch(`change-ip-addressWLX/login/${idLogin}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -144,8 +144,8 @@ const Layouts: React.FC<props> = ({
 };
 
 const styles = StyleSheet.create({
-    buttonHide : {
-        display : "none"
+    buttonHide: {
+        display: "none",
     },
     buttonLogout: {
         backgroundColor: "red",

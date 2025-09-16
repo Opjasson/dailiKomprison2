@@ -45,7 +45,7 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     // End Interface
 
     const getUserId = async () => {
-        const response = await fetch("http://192.168.220.220:8000/login");
+        const response = await fetch("change-ip-addressWLX/login");
         const data = await response.json();
         setId(Object.values(data)[0]?.userId);
     };
@@ -85,7 +85,7 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     // Handle deleteButton
     const handleDelette = async () => {
         try {
-            await fetch(`http://192.168.220.220:8000/data/${index}`, {
+            await fetch(`change-ip-addressWLX/data/${index}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -100,21 +100,18 @@ const UpdatePage: React.FC<props> = ({ navigation, route }) => {
     // Handle updateButton
     const sendUpdate = async () => {
         try {
-            const response = await fetch(
-                `http://192.168.220.220:8000/data/${index}`,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        hotel: hotel,
-                        RNO: RNO,
-                        ARR: ARR,
-                        RNA: RNA,
-                    }),
-                }
-            );
+            const response = await fetch(`change-ip-addressWLX/data/${index}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    hotel: hotel,
+                    RNO: RNO,
+                    ARR: ARR,
+                    RNA: RNA,
+                }),
+            });
             const json = await response.json();
             setData(json);
         } catch (error) {

@@ -18,7 +18,7 @@ const ForgotPass: React.FC<props> = ({ navigation }) => {
     const [userId, setUserId] = useState<number>();
 
     const cekEmail = async () => {
-        const cek = await fetch("http://192.168.220.220:8000/forgotPass", {
+        const cek = await fetch("change-ip-addressWLX/forgotPass", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -28,16 +28,16 @@ const ForgotPass: React.FC<props> = ({ navigation }) => {
             }),
         });
         const hasil = await cek.json();
-      
+
         if (hasil) {
-            setEmail(hasil.email)
-            setUserId(hasil.id)
+            setEmail(hasil.email);
+            setUserId(hasil.id);
             setMsgEmail("Email benar. silahkan isi password baru");
         }
     };
 
     const handleChangePass = async () => {
-        const response = await fetch(`http://192.168.220.220:8000/user/${userId}`, {
+        const response = await fetch(`change-ip-addressWLX/user/${userId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -108,7 +108,7 @@ const ForgotPass: React.FC<props> = ({ navigation }) => {
             <Text>{error}</Text>
 
             <Button aksi={() => handleChangePass()} style={styles.button}>
-              Ubah
+                Ubah
             </Button>
         </View>
     );

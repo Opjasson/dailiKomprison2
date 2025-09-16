@@ -36,21 +36,18 @@ const UbahAkun: React.FC<props> = ({ navigation, route }) => {
 
     const handleUbah = async (id: number) => {
         if (email && password && confPassword) {
-            const response = await fetch(
-                `http://192.168.220.220:8000/user/${id}`,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        username: username,
-                        password: password,
-                        confPassword: confPassword,
-                    }),
-                }
-            );
+            const response = await fetch(`change-ip-addressWLX/user/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email,
+                    username: username,
+                    password: password,
+                    confPassword: confPassword,
+                }),
+            });
 
             if (JSON.stringify(response.status) === "400") {
                 setError("Password dan confPassword tidak sama!");

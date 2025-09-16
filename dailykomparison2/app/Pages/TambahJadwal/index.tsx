@@ -29,7 +29,7 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
     const [user, setUser] = useState<string>();
 
     const getUserId = async () => {
-        const response = await fetch("http://192.168.220.220:8000/login");
+        const response = await fetch("change-ip-addressWLX/login");
         const data = await response.json();
         setId(Object.values(data)[0]?.userId);
     };
@@ -39,7 +39,7 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
     }, []);
 
     const getAkunLoggin = async () => {
-        const response = await fetch(`http://192.168.220.220:8000/user/${id}`);
+        const response = await fetch(`change-ip-addressWLX/user/${id}`);
         const user = await response.json();
         setUser(user.username);
     };
@@ -76,7 +76,7 @@ const TambahJadwal: React.FC<props> = ({ navigation }) => {
     };
 
     const tambahData = async () => {
-        await fetch(`http://192.168.220.220:8000/jadwal`, {
+        await fetch(`change-ip-addressWLX/jadwal`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
